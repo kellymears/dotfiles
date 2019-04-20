@@ -9,4 +9,5 @@
     "editor.fontFamily": "Fira Code",
     "editor.fontLigatures": true,
     "files.trimFinalNewlines": true,
+    "window.zoomLevel": 4,
 }

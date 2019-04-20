@@ -16,6 +16,3 @@ fpath=($HOME/.homesick/repos/homeshick/completions $fpath)
 
 # source oh-my-zsh
 source $ZSH/oh-my-zsh.sh
-
-# alias
-alias composer="php /usr/local/bin/composer.phar"
