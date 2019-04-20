@@ -1,5 +1,6 @@
 {
     "require": {
-        "laravel/valet": "^2.3"
+        "laravel/valet": "^2.3",
+        "spatie/http-status-check": "^3.1"
     }
 }
