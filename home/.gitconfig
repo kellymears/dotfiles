@@ -1,0 +1,7 @@
+[user]
+	name = kellymears
+	email = code@kellymears.me
+[credential]
+	helper = osxkeychain
+[core]
+	excludesfile = /Users/kellymears/.gitignore
