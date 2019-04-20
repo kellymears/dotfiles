@@ -1,0 +1,12 @@
+{
+    "workbench.colorTheme": "Outrun Night",
+    "workbench.editor.highlightModifiedTabs": true,
+    "editor.acceptSuggestionOnEnter": "off",
+    "editor.cursorBlinking": "smooth",
+    "editor.cursorStyle": "block",
+    "editor.formatOnPaste": true,
+    "editor.formatOnSave": true,
+    "editor.fontFamily": "Fira Code",
+    "editor.fontLigatures": true,
+    "files.trimFinalNewlines": true,
+}
