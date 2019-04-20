@@ -1,4 +1,6 @@
 # shortcuts
 code=~/code
 sites=~/code/sites
-newfloridamajority=~/codes/sites/newfloridamajority.org/newfloridamajority.org
+aboutfaceveterans=~/code/sites/aboutfaceveterans.org/aboutfaceveterans.org
+ndncollective=~/code/sites/ndncollective.org/ndncollective.org
+newfloridamajority=~/code/sites/newfloridamajority.org/newfloridamajority.org

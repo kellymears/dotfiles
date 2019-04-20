@@ -5,7 +5,7 @@ export PATH=~/.composer/vendor/bin:$PATH
 export ZSH="/Users/kellymears/.oh-my-zsh"
 
 # oh-my-zsh theme
-ZSH_THEME="robbyrussell"
+ZSH_THEME="spaceship"
 
 # oh-my-zsh plugins
 plugins=(git)
@@ -16,3 +16,7 @@ fpath=($HOME/.homesick/repos/homeshick/completions $fpath)
 
 # source oh-my-zsh
 source $ZSH/oh-my-zsh.sh
+
+  # Set Spaceship ZSH as a prompt
+  autoload -U promptinit; promptinit
+  prompt spaceship
