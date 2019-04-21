@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "emma-cli": "^2.0.2",
+    "forever": "^1.0.0",
     "gitmoji-cli": "^1.9.2",
     "spaceship-prompt": "^3.11.0"
   }

@@ -10,6 +10,7 @@ alias status="http-status-check scan"
 # applications
 alias code="open -a 'Visual Studio Code'"
 alias md="open -a 'Macdown'"
+alias aircast="~/bin/airupnp-osx-multi -l 1000:2000"
 
 # composer
 alias composer="php /usr/local/bin/composer.phar"
