@@ -33,6 +33,10 @@ alias grh="git reset --hard origin/$(current_branch)"
 # gitmoji
 alias gc="gitmoji -c"
 
+# ansible
+alias provision="ansible-playbook server.yml -e"
+alias deploy="ansible-playbook deploy.yml -e"
+
 # util
 eval $(thefuck --alias fuck)
 alias flushdns="sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder"
