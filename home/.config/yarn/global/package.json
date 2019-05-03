@@ -1,7 +1,10 @@
 {
   "dependencies": {
+    "emma": "^0.0.1",
     "emma-cli": "^2.0.2",
     "forever": "^1.0.0",
+    "fx": "^14.0.1",
+    "gitbook-cli": "^2.3.2",
     "gitmoji-cli": "^1.9.2",
     "spaceship-prompt": "^3.11.0"
   }

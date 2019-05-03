@@ -1,6 +1,6 @@
 [user]
-name = kellymears
-email = code@kellymears.me
+	name = Kelly Mears
+	email = developers@tinypixel.dev
 [credential]
 helper = osxkeychain
 [alias]

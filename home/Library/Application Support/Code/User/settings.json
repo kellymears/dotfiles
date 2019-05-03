@@ -12,7 +12,7 @@
   "files.trimFinalNewlines": true,
   "files.trimTrailingWhitespace": true,
   "typescript.preferences.quoteStyle": "single",
-  "window.zoomLevel": 4,
+  "window.zoomLevel": 3,
   "workbench.colorTheme": "Outrun Night",
   "workbench.editor.highlightModifiedTabs": true,
   "prettier.eslintIntegration": true,
@@ -24,7 +24,8 @@
   "prettier.jsxSingleQuote": true,
   "prettier.semi": false,
   "html.format.wrapAttributes": false,
-  "[javascript]": {
+  "[json]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
-  }
+  },
+  "javascript.updateImportsOnFileMove.enabled": "always"
 }
