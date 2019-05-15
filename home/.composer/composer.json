@@ -4,6 +4,7 @@
         "spatie/http-status-check": "^3.1",
         "laravel/lumen-installer": "^1.0",
         "laravel/installer": "^2.0",
-        "squizlabs/php_codesniffer": "*"
+        "squizlabs/php_codesniffer": "*",
+        "laravel-zero/installer": "^2.2"
     }
 }

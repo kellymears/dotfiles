@@ -1,4 +1,5 @@
 # PATH
+PATH=$HOME/.composer/vendor/bin:$PATH
 export PATH=~/.composer/vendor/bin:$PATH
 
 # oh-my-zsh export

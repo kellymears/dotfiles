@@ -12,8 +12,8 @@
   "files.trimFinalNewlines": true,
   "files.trimTrailingWhitespace": true,
   "typescript.preferences.quoteStyle": "single",
-  "window.zoomLevel": 3,
-  "workbench.colorTheme": "Outrun Night",
+  "window.zoomLevel": 2,
+  "workbench.colorTheme": "Horizon",
   "workbench.editor.highlightModifiedTabs": true,
   "prettier.eslintIntegration": true,
   "prettier.singleQuote": true,
@@ -27,5 +27,7 @@
   "[json]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "javascript.updateImportsOnFileMove.enabled": "always"
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "php-cs-fixer.executablePath": "${extensionPath}/php-cs-fixer.phar",
+  "php-cs-fixer.lastDownload": 1557862664310
 }
