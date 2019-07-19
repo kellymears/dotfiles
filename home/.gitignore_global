@@ -1,0 +1,13 @@
+**/.vscode
+**/.DS_Store
+
+**/vendor
+**/node_modules
+
+**/*.sql
+**/*.env
+**/.env
+**/.vault_pass
+
+**/web/app/updraft
+**/web/app/uploads/backup
