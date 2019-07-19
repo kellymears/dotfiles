@@ -1,7 +1,7 @@
 {
     "name": "wp-cli/wp-cli",
     "description": "Installed community packages used by WP-CLI",
-    "version": "2.1.0",
+    "version": "2.2.0",
     "authors": [
         {
             "name": "WP-CLI",
@@ -10,6 +10,7 @@
     ],
     "homepage": "https://wp-cli.org/package-index/",
     "require": {
+        "themefuse/unyson": "dev-master",
         "aaemnnosttv/wp-cli-login-command": "dev-master"
     },
     "require-dev": {},
@@ -20,6 +21,10 @@
         "wp-cli": {
             "type": "composer",
             "url": "https://wp-cli.org/package-index/"
+        },
+        "themefuse/unyson": {
+            "type": "vcs",
+            "url": "https://github.com/ThemeFuse/Unyson-CLI.git"
         }
     },
     "config": {

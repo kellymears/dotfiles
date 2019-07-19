@@ -2,6 +2,9 @@
 PATH=$HOME/.composer/vendor/bin:$PATH
 export PATH=~/.composer/vendor/bin:$PATH
 
+#gettext
+export PATH="/usr/local/opt/gettext/bin:$PATH"
+
 # oh-my-zsh export
 export ZSH="/Users/kellymears/.oh-my-zsh"
 

@@ -6,7 +6,7 @@ helper = osxkeychain
 [alias]
 wow = log --all --graph --decorate --oneline --simplify-by-decoration
 [core]
-excludesfile = /Users/kellymears/.gitignore
+	excludesfile = /Users/kellymears/.gitignore_global
 [color]
 branch = auto
 diff = auto
