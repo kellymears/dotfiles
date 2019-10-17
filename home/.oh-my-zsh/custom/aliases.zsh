@@ -8,9 +8,9 @@ alias img="imgcat"
 alias status="http-status-check scan"
 
 # applications
-alias code="open -a 'Visual Studio Code'"
+alias code="open -a '/Applications/Visual Studio Code.app'"
 alias md="open -a 'Macdown'"
-alias aircast="~/bin/airupnp-osx-multi -l 1000:2000"
+alias aircast="~/bin/airconnect/bin/airupnp-osx-multi -l 1000:2000"
 
 # composer
 alias composer="php /usr/local/bin/composer.phar"
@@ -19,6 +19,7 @@ alias composer="php /usr/local/bin/composer.phar"
 alias dockers="docker ps -a"
 alias dcu="docker compose up"
 alias dcud="docker compose up -d"
+alias dcr=alias dcr="docker-compose run --rm"
 
 # git
 alias ga="git for-each-ref refs/remotes/ --format='%(authorname) %(refname)' --sort=authorname"

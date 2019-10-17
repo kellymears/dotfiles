@@ -5,7 +5,8 @@
   "editor.detectIndentation": true,
   "editor.formatOnPaste": true,
   "editor.formatOnSave": false,
-  "editor.fontFamily": "Fira Code",
+  // "editor.fontFamily": "dotsies",
+  "editor.fontFamily": "Simplon Mono",
   "editor.fontLigatures": true,
   "editor.insertSpaces": true,
   "editor.minimap.enabled": false,
@@ -34,19 +35,22 @@
     "rgba(92, 87, 246, 1)",
   ],
   "typescript.preferences.quoteStyle": "single",
-  "window.zoomLevel": 3,
-  "workbench.colorTheme": "Henna",
+  "window.zoomLevel": 1,
+  "workbench.colorTheme": "Arc Dark",
   "workbench.editor.highlightModifiedTabs": true,
   "javascript.updateImportsOnFileMove.enabled": "always",
   "php-cs-fixer.executablePath": "${extensionPath}/php-cs-fixer.phar",
-  "php-cs-fixer.lastDownload": 1562642111293,
+  "php-cs-fixer.lastDownload": 1570912174780,
   "workbench.statusBar.feedback.visible": false,
   "breadcrumbs.enabled": true,
-  "workbench.activityBar.visible": false,
+  "workbench.activityBar.visible": true,
   "workbench.statusBar.visible": false,
   "debug.console.fontFamily": "Fira Mono",
   "debug.internalConsoleOptions": "openOnSessionStart",
   "terminal.explorerKind": "external",
   "terminal.external.osxExec": "Hyper.app",
-  "terminal.integrated.fontFamily": "Fira Code"
+  "terminal.integrated.fontFamily": "Fira Code",
+  "[php]": {
+    "editor.defaultFormatter": "junstyle.php-cs-fixer"
+  }
 }
