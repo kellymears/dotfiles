@@ -1,0 +1,44 @@
+[alias]
+	lg1 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
+	lg2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
+	lg = !"git lg1"
+	nc = commit -a --allow-empty-message -m ""
+
+[commit]
+	gpgsign = true
+
+[color]
+	ui = true
+
+[core]
+	excludesfile = ~/.dotfiles/.gitignore
+	editor = code --wait
+
+[diff]
+    tool = code
+
+[difftool "code"]
+    cmd = code --wait --diff $LOCAL $REMOTE
+
+[fetch]
+	prune = true
+
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+
+[gpg]
+	program = /opt/homebrew/bin/gpg
+
+[init]
+	defaultBranch = main
+
+[pull]
+	ff = only
+
+[user]
+	name = Kelly Mears
+	email = developers@tinypixel.dev
+	signingkey = 3DEF24B5

@@ -1,0 +1,19 @@
+# focus window
+ctrl + cmd - ; : yabai -m window --focus west
+ctrl + cmd - ' : yabai -m window --focus south
+ctrl + cmd - [ : yabai -m window --focus north
+ctrl + cmd - / : yabai -m window --focus east
+
+# swap window
+shift + cmd + opt - left : yabai -m window --swap west
+shift + cmd + opt - down ; : yabai -m window --swap south
+shift + cmd + opt - north : yabai -m window --swap north
+shift + cmd + opt - east : yabai -m window --swap east
+
+# move window
+shift + cmd - h : yabai -m window --warp west
+shift + cmd - j : yabai -m window --warp south
+shift + cmd - k : yabai -m window --warp north
+shift + cmd - k : yabai -m window --warp north
+shift + cmd - k : yabai -m window --warp north
+shift + cmd - l : yabai -m window --warp east

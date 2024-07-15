@@ -1,0 +1,9 @@
+# .zsh_plugins.txt
+
+zsh-users/zsh-autosuggestions
+zsh-users/zsh-completions
+
+# prompts:
+#   with prompt plugins, remember to add this to your .zshrc:
+#   `autoload -Uz promptinit && promptinit && prompt pure`
+sindresorhus/pure     kind:fpath
