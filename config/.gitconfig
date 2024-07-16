@@ -11,7 +11,7 @@
 	ui = true
 
 [core]
-	excludesfile = ~/.dotfiles/.gitignore
+	excludesfile = ~/.gitignore
 	editor = code --wait
 
 [diff]
