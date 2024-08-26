@@ -3,6 +3,8 @@ source $HOME/.dotfiles/env/secret.zsh
 
 typeset -U PATH path
 path=(
+  $VOLTA_HOME/bin
+
   /Library/Apple/usr/bin
   /System/Cryptexes/App/usr/bin
   /var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin
@@ -19,10 +21,10 @@ path=(
   /bin
   /usr/sbin
   /sbin
+  
   $HOME/.local/bin
   $HOME/.config/.cargo/bin
   $HOME/.config/.composer/vendor/bin
-  $HOME/.config/.volta/bin
 )
 export PATH
 

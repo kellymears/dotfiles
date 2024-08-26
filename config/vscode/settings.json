@@ -95,7 +95,7 @@
   },
   "chat.editor.fontFamily": "'Monaspace Krypton Var', Consolas, 'Courier New', monospace",
   "debug.disassemblyView.showSourceCode": false,
-  "diffEditor.ignoreTrimWhitespace": false,
+  "diffEditor.ignoreTrimWhitespace": true,
   "editor.codeLens": false,
   "editor.codeLensFontFamily": "'Monaspace Krypton Var', Consolas, 'Courier New', monospace",
   "editor.defaultFormatter": "esbenp.prettier-vscode",
