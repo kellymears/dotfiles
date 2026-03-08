@@ -14,3 +14,5 @@
 
 # Tracked XDG configs (added as each config is processed)
 !starship.toml
+!glow/
+!glow/**
