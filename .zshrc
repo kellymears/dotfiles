@@ -2,9 +2,7 @@ source $HOME/.dotfiles/env/env.zsh
 source $HOME/.dotfiles/env/secret.zsh
 
 typeset -U PATH path
-path=(
-  $VOLTA_HOME/bin
-
+export path=(
   /Library/Apple/usr/bin
   /System/Cryptexes/App/usr/bin
   /var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin
@@ -12,6 +10,7 @@ path=(
   /var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin
   /Library/Frameworks/Mono.framework/Versions/Current/Commands
 
+  /opt/homebrew/opt/rustup/bin
   /opt/homebrew/bin
   /opt/homebrew/sbin
   /usr/local/MacGPG2/bin
@@ -21,14 +20,12 @@ path=(
   /bin
   /usr/sbin
   /sbin
-  
-  $HOME/.local/bin
-  $HOME/.config/.cargo/bin
-  $HOME/.config/.composer/vendor/bin
-)
-export PATH
 
-antidote_dir=$(brew --prefix)/opt/antidote/
+  $HOME/.local/bin
+  $HOME/.cargo/bin
+)
+
+antidote_dir=/opt/homebrew/opt/antidote
 zsh_plugins=$HOME/.dotfiles/.zsh_plugins
 
 source $antidote_dir/share/antidote/antidote.zsh
@@ -47,9 +44,16 @@ fi
 
 # Source your static plugins file.
 source ${zsh_plugins}.zsh
+autoload -U promptinit; promptinit
+prompt pure
 
-autoload -Uz promptinit && promptinit && prompt pure
+source $HOME/.dotfiles/brew.zsh;
+source $HOME/.dotfiles/alias.zsh;
+source $HOME/.dotfiles/functions.zsh;
+source $HOME/.dotfiles/completions/init.zsh;
 
-source $HOME/.dotfiles/brew.zsh
-source $HOME/.dotfiles/alias.zsh
-source $HOME/.dotfiles/functions.zsh
+# Added by OrbStack: command-line tools and integration
+# Comment this line if you don't want it to be added again.
+source ~/.orbstack/shell/init.zsh 2>/dev/null || :
+
+(( $+commands[fnm] )) && eval "$(fnm env --use-on-cd --shell zsh)"

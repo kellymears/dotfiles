@@ -4,5 +4,91 @@
     "key": "ctrl+alt+a",
     "command": "alternate.alternateFile",
     "when": "editorTextFocus"
+  },
+  {
+    "key": "cmd+[",
+    "command": "workbench.action.previousEditor"
+  },
+  {
+    "key": "cmd+]",
+    "command": "workbench.action.nextEditor"
+  },
+  {
+    "key": "cmd+1",
+    "command": "workbench.action.openEditorAtIndex1"
+  },
+  {
+    "key": "cmd+2",
+    "command": "workbench.action.openEditorAtIndex2"
+  },
+  {
+    "key": "cmd+3",
+    "command": "workbench.action.openEditorAtIndex3"
+  },
+  {
+    "key": "cmd+4",
+    "command": "workbench.action.openEditorAtIndex4"
+  },
+  {
+    "key": "cmd+5",
+    "command": "workbench.action.openEditorAtIndex5"
+  },
+  {
+    "key": "cmd+6",
+    "command": "workbench.action.openEditorAtIndex6"
+  },
+  {
+    "key": "cmd+7",
+    "command": "workbench.action.openEditorAtIndex7"
+  },
+  {
+    "key": "cmd+8",
+    "command": "workbench.action.openEditorAtIndex8"
+  },
+  {
+    "key": "cmd+9",
+    "command": "workbench.action.openEditorAtIndex9"
+  },
+  {
+    "key": "cmd+0",
+    "command": "workbench.action.lastEditorInGroup"
+  },
+  {
+    "key": "shift+cmd+e shift+cmd+d",
+    "command": "chatgpt.openSidebar"
+  },
+  {
+    "key": "shift+cmd+e 1",
+    "command": "workbench.files.action.focusFilesExplorer"
+  },
+  {
+    "key": "shift+cmd+e 2",
+    "command": "workbench.action.findInFiles"
+  },
+  {
+    "key": "shift+cmd+f",
+    "command": "-workbench.action.findInFiles"
+  },
+  {
+    "key": "shift+cmd+e 3",
+    "command": "workbench.view.scm",
+    "when": "workbench.scm.active"
+  },
+  {
+    "key": "shift+cmd+e 3",
+    "command": "workbench.view.scm",
+    "when": "workbench.scm.active && !gitlens:disabled && config.gitlens.keymap == 'chorded'"
+  },
+  {
+    "key": "shift+cmd+e 4",
+    "command": "workbench.view.extension.codexViewContainer"
+  },
+  {
+    "key": "shift+enter",
+    "command": "workbench.action.terminal.sendSequence",
+    "args": {
+      "text": "\u001b\r"
+    },
+    "when": "terminalFocus"
   }
 ]

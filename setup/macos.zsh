@@ -71,6 +71,9 @@ defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
 # Disable Resume system-wide
 defaults write NSGlobalDomain NSQuitAlwaysKeepsWindows -bool false
 
+# Enable the press-and-hold for accented characters
+defaults write -g ApplePressAndHoldEnabled -bool true
+
 # Kill affected applications
 APPS=(
   Finder

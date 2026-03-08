@@ -1,14 +1,15 @@
-# Folder view configuration files
-**/.DS_Store
-**/Desktop.ini
+# Ignore auto-generated XDG content by default
+*
 
-# Thumbnail cache files
-**/._*
-**/Thumbs.db
+# Tracked home-dir dotfiles
+!.gitignore
+!.gitconfig
+!.hushlogin
+!.actrc
+!.carbon-now.json
+!.ripgreprc
+!gitignore_global
+!vscode/
+!vscode/**
 
-# Files that might appear on external disks
-**/.Spotlight-V100
-**/.Trashes
-
-# Any projections configuration files
-**/.projections.json
+# Tracked XDG configs (added as each config is processed)

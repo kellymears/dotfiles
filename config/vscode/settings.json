@@ -1,152 +1,185 @@
 {
-  "[html]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  "[dockercompose]": {
+    "editor.autoIndent": "advanced",
+    "editor.defaultFormatter": "redhat.vscode-yaml",
+    "editor.insertSpaces": true,
+    "editor.tabSize": 2,
+  },
+  "[github-actions-workflow]": {
+    "editor.defaultFormatter": "redhat.vscode-yaml",
   },
   "[javascript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
   },
   "[javascriptreact]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
   },
   "[json]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
   },
   "[jsonc]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
   },
   "[mdx]": {
-    "editor.defaultFormatter": "unifiedjs.vscode-mdx"
+    "editor.defaultFormatter": "unifiedjs.vscode-mdx",
   },
   "[php]": {
-    "editor.defaultFormatter": "bmewburn.vscode-intelephense-client"
+    "editor.formatOnSave": false,
   },
   "[postcss]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
   },
   "[scss]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
   },
   "[typescript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
   },
   "[typescriptreact]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
   },
   "[yaml]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
   },
+  "accessibility.signalOptions.volume": 0,
   "accessibility.signals.diffLineDeleted": {
-    "sound": "off"
+    "sound": "off",
   },
   "accessibility.signals.diffLineInserted": {
-    "sound": "off"
+    "sound": "off",
   },
   "accessibility.signals.diffLineModified": {
-    "sound": "off"
+    "sound": "off",
   },
   "accessibility.signals.lineHasBreakpoint": {
-    "sound": "off"
+    "sound": "off",
   },
   "accessibility.signals.lineHasError": {
-    "sound": "off"
+    "sound": "off",
   },
   "accessibility.signals.lineHasFoldedArea": {
-    "sound": "off"
+    "sound": "off",
   },
   "accessibility.signals.lineHasInlineSuggestion": {
-    "sound": "off"
+    "sound": "off",
   },
   "accessibility.signals.noInlayHints": {
-    "sound": "off"
+    "sound": "off",
   },
   "accessibility.signals.notebookCellCompleted": {
-    "sound": "off"
+    "sound": "off",
   },
   "accessibility.signals.notebookCellFailed": {
-    "sound": "off"
+    "sound": "off",
   },
   "accessibility.signals.onDebugBreak": {
-    "sound": "off"
+    "sound": "off",
   },
   "accessibility.signals.progress": {
-    "sound": "off"
+    "sound": "off",
   },
   "accessibility.signals.taskCompleted": {
-    "sound": "off"
+    "sound": "off",
   },
   "accessibility.signals.taskFailed": {
-    "sound": "off"
+    "sound": "off",
   },
   "accessibility.signals.terminalCommandFailed": {
-    "sound": "off"
+    "sound": "off",
   },
   "accessibility.signals.terminalQuickFix": {
-    "sound": "off"
-  },
-  "apc.stylesheet": {
-    ".ghost-text-decoration,.ghost-text-decoration-preview": {
-      "font-family": "Monaspace Krypton",
-      "font-weight": "lighter"
-    },
-    ".mtki": {
-      "font-family": "Monaspace Radon",
-      "font-weight": "lighter"
-    }
+    "sound": "off",
   },
   "chat.editor.fontFamily": "'Monaspace Krypton Var', Consolas, 'Courier New', monospace",
+  "chat.tools.terminal.autoApprove": {
+    "true": true,
+  },
   "debug.disassemblyView.showSourceCode": false,
   "diffEditor.ignoreTrimWhitespace": true,
-  "editor.codeLens": false,
+  "docker.extension.enableComposeLanguageServer": false,
+  "editor.accessibilitySupport": "off",
+  "editor.codeLens": true,
   "editor.codeLensFontFamily": "'Monaspace Krypton Var', Consolas, 'Courier New', monospace",
+  "editor.cursorBlinking": "phase",
+  "editor.cursorSmoothCaretAnimation": "on",
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.fontFamily": "'Monaspace Neon Var', Consolas, 'Courier New', monospace",
   "editor.fontLigatures": true,
   "editor.formatOnSave": true,
   "editor.formatOnType": false,
   "editor.inlayHints.fontFamily": "'Monaspace Krypton Var', Consolas, 'Courier New', monospace",
+  "editor.inlineSuggest.edits.allowCodeShifting": "never",
   "editor.inlineSuggest.enabled": true,
   "editor.linkedEditing": true,
+  "editor.minimap.enabled": false,
   "editor.stickyScroll.enabled": true,
   "editor.tabSize": 2,
   "editor.tokenColorCustomizations": {
-    "textMateRules": []
+    "textMateRules": [
+      {
+        "name": "envKeys",
+        "scope": "string.quoted.single.ini,constant.numeric.ini,string.quoted.double.ini",
+        "settings": {
+          "foreground": "#19354900",
+        },
+      },
+    ],
   },
   "editor.unicodeHighlight.ambiguousCharacters": false,
-  "editor.unicodeHighlight.invisibleCharacters": false,
+  "editor.unicodeHighlight.invisibleCharacters": true,
   "editor.unicodeHighlight.nonBasicASCII": false,
+  "eslint.runtime": "node",
   "explorer.confirmDelete": false,
-  "files.associations": {
-    "development": "plaintext",
-    "production": "plaintext",
-    "staging": "plaintext"
-  },
+  "explorer.confirmDragAndDrop": false,
   "git.autofetch": true,
+  "git.blame.editorDecoration.enabled": true,
   "git.fetchOnPull": true,
-  "github.copilot.editor.enableAutoCompletions": true,
-  "github.copilot.editor.enableCodeActions": true,
-  "github.copilot.enable": {
-    "*": "true"
-  },
+  "github.copilot.editor.enableCodeActions": false,
+  "github.copilot.nextEditSuggestions.enabled": false,
+  "github.copilot.nextEditSuggestions.fixes": false,
   "githubPullRequests.pullBranch": "never",
-  "importCost.bundleSizeDecoration": "minified",
-  "importCost.fontStyle": "italic",
-  "importCost.javascriptExtensions": ["\\.jsx?$"],
-  "importCost.typescriptExtensions": ["\\.tsx?$"],
-  "playwright.reuseBrowser": false,
-  "prisma.showPrismaDataPlatformNotification": false,
+  "gitlens.graph.minimap.dataType": "lines",
+  "intelephense.format.enable": false,
+  "intelephense.phpdoc.returnVoid": false,
+  "javascript.updateImportsOnFileMove.enabled": "never",
   "redhat.telemetry.enabled": false,
   "scm.inputFontFamily": "editor",
   "search.followSymlinks": false,
   "search.useIgnoreFiles": false,
-  "todohighlight.isEnable": true,
+  "security.promptForLocalFileProtocolHandling": false,
+  "terminal.integrated.suggest.enabled": true,
   "typescript.suggest.autoImports": true,
-  "typescript.updateImportsOnFileMove.enabled": "never",
+  "vscode-pets.theme": "winter",
   "workbench.activityBar.location": "top",
-  "workbench.colorTheme": "Snazzy Plus - Darker w/ Italics",
-  "workbench.commandPalette.experimental.suggestCommands": true,
+  "workbench.colorTheme": "Snazzy Plus - Darker",
   "workbench.editor.highlightModifiedTabs": true,
   "workbench.editor.tabSizing": "fixed",
+  "workbench.editorAssociations": {
+    "*.svg": "default",
+  },
   "workbench.iconTheme": "chalice-icon-theme",
+  "workbench.layoutControl.enabled": false,
+  "workbench.navigationControl.enabled": false,
+  "workbench.secondarySideBar.defaultVisibility": "hidden",
   "workbench.startupEditor": "none",
-  "workbench.tree.enableStickyScroll": true
+  "chat.instructionsFilesLocations": {
+    ".github/instructions": true,
+  },
+  "claudeCode.preferredLocation": "panel",
+  "json.schemaDownload.trustedDomains": {
+    "https://schemastore.azurewebsites.net/": true,
+    "https://raw.githubusercontent.com/": true,
+    "https://www.schemastore.org/": true,
+    "https://json.schemastore.org/": true,
+    "https://json-schema.org/": true,
+    "https://opencode.ai/config.json": true,
+    "https://models.dev": true,
+  },
+  "git.confirmSync": false,
+  "github.copilot.enable": {
+    "*": false,
+    "plaintext": false,
+    "markdown": false,
+    "scminput": false,
+  },
 }

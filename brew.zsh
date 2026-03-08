@@ -1,12 +1,18 @@
-# brew shellenv
-eval $(/opt/homebrew/bin/brew shellenv)
+# brew.zsh — Homebrew environment (Apple Silicon)
+local brew_prefix="/opt/homebrew"
 
+eval "$($brew_prefix/bin/brew shellenv)"
+
+export HOMEBREW_NO_ENV_HINTS=1
+export HOMEBREW_NO_ANALYTICS=1
+
+# command-not-found handler
+local cnf_handler="$brew_prefix/Library/Homebrew/command-not-found/handler.sh"
+[[ -f "$cnf_handler" ]] && source "$cnf_handler"
+
+# autojump — lazy-load on first `j` invocation
 function j() {
-  [ -f $(brew --prefix)/etc/profile.d/autojump.sh ] && . $(brew --prefix)/etc/profile.d/autojump.sh
+  local aj="$HOMEBREW_PREFIX/etc/profile.d/autojump.sh"
+  [[ -f "$aj" ]] && . "$aj"
   j "$@"
 }
-
-HB_CNF_HANDLER="$(brew --repository)/Library/Taps/homebrew/homebrew-command-not-found/handler.sh"
-if [ -f "$HB_CNF_HANDLER" ]; then
-  source "$HB_CNF_HANDLER";
-fi

@@ -1,0 +1,11 @@
+--type-add
+test:*.test.*
+
+--type-add
+story:*.stories.*
+
+--max-columns=150
+--max-columns-preview
+
+--glob
+!.git/*
