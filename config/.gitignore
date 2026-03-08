@@ -17,3 +17,13 @@
 !glow/**
 !btop/
 !btop/**
+!pnpm/
+!pnpm/**
+!tmux/
+!tmux/**
+!gh/
+!gh/config.yml
+!k9s/
+!k9s/**
+!nvim/
+!nvim/**
