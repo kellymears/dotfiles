@@ -5,7 +5,6 @@
 !.gitignore
 !.gitconfig
 !.hushlogin
-!.carbon-now.json
 !.ripgreprc
 !gitignore_global
 !vscode/
