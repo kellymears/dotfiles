@@ -57,3 +57,4 @@ source $HOME/.dotfiles/completions/init.zsh;
 source ~/.orbstack/shell/init.zsh 2>/dev/null || :
 
 (( $+commands[fnm] )) && eval "$(fnm env --use-on-cd --shell zsh)"
+(( $+commands[rbenv] )) && eval "$(rbenv init - zsh)"
