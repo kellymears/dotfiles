@@ -26,3 +26,5 @@
 !k9s/**
 !nvim/
 !nvim/**
+!fastfetch/
+!fastfetch/**
