@@ -70,5 +70,13 @@ source $HOME/.dotfiles/completions/init.zsh;
 # Comment this line if you don't want it to be added again.
 source ~/.orbstack/shell/init.zsh 2>/dev/null || :
 
-(( $+commands[fnm] )) && eval "$(fnm env --use-on-cd --shell zsh)"
+(( $+commands[fnm] )) && {
+  eval "$(fnm env --use-on-cd --log-level quiet --shell zsh)"
+
+  _fnm_node_version() {
+    RPROMPT="%F{green}⬢ $(node -v)%f"
+  }
+  add-zsh-hook chpwd _fnm_node_version
+  _fnm_node_version
+}
 (( $+commands[rbenv] )) && eval "$(rbenv init - zsh)"
