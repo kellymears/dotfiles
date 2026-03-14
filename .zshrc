@@ -47,6 +47,20 @@ source ${zsh_plugins}.zsh
 autoload -U promptinit; promptinit
 prompt pure
 
+# Ghostty's shell integration inserts OSC 133 marks into PS1 that break
+# Pure's prompt_newline pattern matching during async re-renders,
+# causing the preprompt (directory) to duplicate. Strip marks before
+# Pure processes the prompt.
+if [[ -n "$GHOSTTY_RESOURCES_DIR" ]] && (( ! $+functions[_original_prompt_pure_preprompt_render] )); then
+  functions[_original_prompt_pure_preprompt_render]=$functions[prompt_pure_preprompt_render]
+  prompt_pure_preprompt_render() {
+    PROMPT=${PROMPT//$'%{\e]133;A;cl=line\a%}'}
+    PROMPT=${PROMPT//$'%{\e]133;A;k=s\a%}'}
+    PROMPT=${PROMPT//$'%{\e]133;B\a%}'}
+    _original_prompt_pure_preprompt_render "$@"
+  }
+fi
+
 source $HOME/.dotfiles/brew.zsh;
 source $HOME/.dotfiles/alias.zsh;
 source $HOME/.dotfiles/functions.zsh;
