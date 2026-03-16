@@ -10,5 +10,4 @@ export RIPGREP_CONFIG_PATH=$CONFIG/.ripgreprc
 
 # Data dirs — NOT in repo
 export COMPOSER_HOME=$HOME/.local/share/composer
-export PYENV_ROOT=$HOME/.local/share/pyenv
 

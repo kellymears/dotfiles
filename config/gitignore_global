@@ -16,5 +16,8 @@
 # mago
 mago
 
+# direnv local env
+**/.envrc
+
 # claude local settings
 **/.claude/settings.local.json

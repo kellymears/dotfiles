@@ -1,0 +1,6 @@
+style = "compact"
+inline_height = 30
+auto_sync = false
+db_path = "~/.local/share/atuin/history.db"
+filter_mode_shell_up_arrow = "session"
+show_duration = true

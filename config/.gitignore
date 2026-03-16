@@ -28,5 +28,9 @@
 !nvim/**
 !fastfetch/
 !fastfetch/**
+!atuin/
+!atuin/**
+!mise/
+!mise/**
 !awsume/
 !awsume/**

@@ -70,13 +70,31 @@ source $HOME/.dotfiles/completions/init.zsh;
 # Comment this line if you don't want it to be added again.
 source ~/.orbstack/shell/init.zsh 2>/dev/null || :
 
-(( $+commands[fnm] )) && {
-  eval "$(fnm env --use-on-cd --log-level quiet --shell zsh)"
+# ── tool runtime manager ─────────────────────────────────────────────
+(( $+commands[mise] )) && eval "$(mise activate zsh)"
 
-  _fnm_node_version() {
+# ── RPROMPT: node version ────────────────────────────────────────────
+_node_version_rprompt() {
+  if (( $+commands[node] )); then
     RPROMPT="%F{green}⬢ $(node -v)%f"
-  }
-  add-zsh-hook chpwd _fnm_node_version
-  _fnm_node_version
+  else
+    RPROMPT=""
+  fi
 }
-(( $+commands[rbenv] )) && eval "$(rbenv init - zsh)"
+add-zsh-hook chpwd _node_version_rprompt
+_node_version_rprompt
+
+# ── fzf ──────────────────────────────────────────────────────────────
+export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_ALT_C_COMMAND='fd --type d --hidden --follow --exclude .git'
+source <(fzf --zsh)
+
+# ── atuin (after fzf so atuin claims ctrl-r) ─────────────────────────
+(( $+commands[atuin] )) && eval "$(atuin init zsh)"
+
+# ── zoxide ───────────────────────────────────────────────────────────
+(( $+commands[zoxide] )) && eval "$(zoxide init zsh)"
+
+# ── direnv (must be last) ────────────────────────────────────────────
+(( $+commands[direnv] )) && eval "$(direnv hook zsh)"
