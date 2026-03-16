@@ -11,3 +11,22 @@ alias dcrn="docker compose run --rm --no-deps"
 alias fastfetch="fastfetch -c \$CONFIG/fastfetch/config.jsonc"
 
 alias ls="eza --long --almost-all --no-time --no-user --no-permissions --octal-permissions --hyperlink"
+
+j() {
+  printf '\033[33m'
+  cat <<'EOF'
+
+    ╭──────────────────────────────────╮
+    │  ⚡ j is dead, long live z ⚡   │
+    ╰──────────────────────────────────╯
+        \
+         \    ╭━━━╮
+              ┃ z ┃  ← this one now
+              ╰━━━╯
+               / \
+              /   \
+
+EOF
+  printf '\033[0m'
+  z "$@"
+}
