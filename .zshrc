@@ -73,16 +73,18 @@ source ~/.orbstack/shell/init.zsh 2>/dev/null || :
 # ── tool runtime manager ─────────────────────────────────────────────
 (( $+commands[mise] )) && eval "$(mise activate zsh)"
 
-# ── RPROMPT: node version ────────────────────────────────────────────
-_node_version_rprompt() {
+# ── RPROMPT ──────────────────────────────────────────────────────────
+# Cache node version on chpwd (avoids shelling out on every precmd)
+_cached_node_version=""
+_update_node_version() {
   if (( $+commands[node] )); then
-    RPROMPT="%F{green}⬢ $(node -v)%f"
+    _cached_node_version="$(node -v)"
   else
-    RPROMPT=""
+    _cached_node_version=""
   fi
 }
-add-zsh-hook chpwd _node_version_rprompt
-_node_version_rprompt
+add-zsh-hook chpwd _update_node_version
+_update_node_version
 
 # ── fzf ──────────────────────────────────────────────────────────────
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
