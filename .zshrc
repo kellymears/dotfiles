@@ -99,4 +99,23 @@ source <(fzf --zsh)
 (( $+commands[zoxide] )) && eval "$(zoxide init zsh)"
 
 # ── direnv (must be last) ────────────────────────────────────────────
-(( $+commands[direnv] )) && eval "$(direnv hook zsh)"
+# Hook registers _direnv_hook on precmd+chpwd; override to silence stderr
+# (log messages) while preserving stdout (env export commands).
+(( $+commands[direnv] )) && {
+  eval "$(direnv hook zsh)"
+  _direnv_hook() {
+    trap -- '' SIGINT
+    eval "$("/opt/homebrew/bin/direnv" export zsh 2>/dev/null)"
+    trap - SIGINT
+  }
+}
+
+# ── compose RPROMPT (after direnv so DIRENV_DIR is current) ─────────
+_compose_rprompt() {
+  local parts=()
+  [[ -n "$CLAUDE_CONFIG_DIR" && "$CLAUDE_CONFIG_DIR" != "$HOME/.claude" ]] \
+    && parts+=("%F{183}✦ ${CLAUDE_CONFIG_DIR/#$HOME/~}%f")
+  [[ -n "$_cached_node_version" ]] && parts+=("%F{green}⬢ $_cached_node_version%f")
+  RPROMPT="${(j: :)parts}"
+}
+add-zsh-hook precmd _compose_rprompt
