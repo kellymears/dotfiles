@@ -196,4 +196,7 @@
     "markdown": false,
     "scminput": false,
   },
+  "files.associations": {
+    "*.md": "markdown",
+  },
 }
