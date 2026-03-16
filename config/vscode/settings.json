@@ -95,7 +95,7 @@
     "true": true,
   },
   "debug.disassemblyView.showSourceCode": false,
-  "diffEditor.ignoreTrimWhitespace": true,
+  "diffEditor.ignoreTrimWhitespace": false,
   "docker.extension.enableComposeLanguageServer": false,
   "editor.accessibilitySupport": "off",
   "editor.codeLens": true,
