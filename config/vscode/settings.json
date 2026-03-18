@@ -20,6 +20,9 @@
   "[jsonc]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
   },
+  "[markdown]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+  },
   "[mdx]": {
     "editor.defaultFormatter": "unifiedjs.vscode-mdx",
   },
@@ -42,54 +45,6 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode",
   },
   "accessibility.signalOptions.volume": 0,
-  "accessibility.signals.diffLineDeleted": {
-    "sound": "off",
-  },
-  "accessibility.signals.diffLineInserted": {
-    "sound": "off",
-  },
-  "accessibility.signals.diffLineModified": {
-    "sound": "off",
-  },
-  "accessibility.signals.lineHasBreakpoint": {
-    "sound": "off",
-  },
-  "accessibility.signals.lineHasError": {
-    "sound": "off",
-  },
-  "accessibility.signals.lineHasFoldedArea": {
-    "sound": "off",
-  },
-  "accessibility.signals.lineHasInlineSuggestion": {
-    "sound": "off",
-  },
-  "accessibility.signals.noInlayHints": {
-    "sound": "off",
-  },
-  "accessibility.signals.notebookCellCompleted": {
-    "sound": "off",
-  },
-  "accessibility.signals.notebookCellFailed": {
-    "sound": "off",
-  },
-  "accessibility.signals.onDebugBreak": {
-    "sound": "off",
-  },
-  "accessibility.signals.progress": {
-    "sound": "off",
-  },
-  "accessibility.signals.taskCompleted": {
-    "sound": "off",
-  },
-  "accessibility.signals.taskFailed": {
-    "sound": "off",
-  },
-  "accessibility.signals.terminalCommandFailed": {
-    "sound": "off",
-  },
-  "accessibility.signals.terminalQuickFix": {
-    "sound": "off",
-  },
   "chat.editor.fontFamily": "'Monaspace Krypton Var', Consolas, 'Courier New', monospace",
   "chat.tools.terminal.autoApprove": {
     "true": true,
@@ -134,22 +89,16 @@
   "git.autofetch": true,
   "git.blame.editorDecoration.enabled": true,
   "git.fetchOnPull": true,
-  "github.copilot.editor.enableCodeActions": false,
-  "github.copilot.nextEditSuggestions.enabled": false,
-  "github.copilot.nextEditSuggestions.fixes": false,
   "githubPullRequests.pullBranch": "never",
-  "gitlens.graph.minimap.dataType": "lines",
   "intelephense.format.enable": false,
   "intelephense.phpdoc.returnVoid": false,
-  "javascript.updateImportsOnFileMove.enabled": "never",
   "redhat.telemetry.enabled": false,
   "scm.inputFontFamily": "editor",
   "search.followSymlinks": false,
   "search.useIgnoreFiles": false,
   "security.promptForLocalFileProtocolHandling": false,
   "terminal.integrated.suggest.enabled": true,
-  "typescript.suggest.autoImports": true,
-  "vscode-pets.theme": "winter",
+  "vscode-pets.theme": "beach",
   "workbench.activityBar.location": "top",
   "workbench.colorCustomizations": {
     "activityBar.background": "#000000",
@@ -168,35 +117,23 @@
   "workbench.colorTheme": "Snazzy Plus - Darker",
   "workbench.editor.highlightModifiedTabs": true,
   "workbench.editor.tabSizing": "fixed",
-  "workbench.editorAssociations": {
-    "*.svg": "default",
-  },
   "workbench.iconTheme": "chalice-icon-theme",
   "workbench.layoutControl.enabled": false,
   "workbench.navigationControl.enabled": false,
   "workbench.secondarySideBar.defaultVisibility": "hidden",
   "workbench.startupEditor": "none",
-  "chat.instructionsFilesLocations": {
-    ".github/instructions": true,
-  },
-  "claudeCode.preferredLocation": "panel",
   "json.schemaDownload.trustedDomains": {
-    "https://schemastore.azurewebsites.net/": true,
-    "https://raw.githubusercontent.com/": true,
-    "https://www.schemastore.org/": true,
-    "https://json.schemastore.org/": true,
+    "https://anthropic.com": true,
+    "https://developer.microsoft.com/json-schemas/": true,
     "https://json-schema.org/": true,
-    "https://opencode.ai/config.json": true,
+    "https://json.schemastore.org/": true,
     "https://models.dev": true,
+    "https://opencode.ai/config.json": true,
+    "https://raw.githubusercontent.com/": true,
+    "https://raw.githubusercontent.com/devcontainers/spec/": true,
+    "https://raw.githubusercontent.com/microsoft/vscode/": true,
+    "https://schemastore.azurewebsites.net/": true,
+    "https://www.schemastore.org/": true,
   },
   "git.confirmSync": false,
-  "github.copilot.enable": {
-    "*": false,
-    "plaintext": false,
-    "markdown": false,
-    "scminput": false,
-  },
-  "files.associations": {
-    "*.md": "markdown",
-  },
 }
