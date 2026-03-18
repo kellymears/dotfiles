@@ -116,6 +116,10 @@ _compose_rprompt() {
   [[ -n "$CLAUDE_CONFIG_DIR" && "$CLAUDE_CONFIG_DIR" != "$HOME/.claude" ]] \
     && parts+=("%F{183}✦ ${CLAUDE_CONFIG_DIR/#$HOME/~}%f")
   [[ -n "$_cached_node_version" ]] && parts+=("%F{green}⬢ $_cached_node_version%f")
-  RPROMPT="${(j: :)parts}"
+  if (( ${#parts} )); then
+    RPROMPT=$'%{\e[1A%}'"${(j: :)parts}"$'%{\e[1B%}'
+  else
+    RPROMPT=""
+  fi
 }
 add-zsh-hook precmd _compose_rprompt
