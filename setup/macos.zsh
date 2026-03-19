@@ -564,6 +564,38 @@ defaults write com.apple.SoftwareUpdate CriticalUpdateInstall -int 1
 defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true
 
 ###############################################################################
+# cmux                                                                        #
+###############################################################################
+
+# cmux terminal multiplexer (cmuxterm.app) preferences.
+# These are app-specific and less universal than the system settings above.
+
+# Appearance — follow system light/dark mode
+defaults write com.cmuxterm.app appearanceMode -string "system"
+
+# Sidebar — native macOS sidebar style, blended within the window
+defaults write com.cmuxterm.app sidebarPreset -string "nativeSidebar"
+defaults write com.cmuxterm.app sidebarBlendMode -string "withinWindow"
+defaults write com.cmuxterm.app sidebarMaterial -string "sidebar"
+defaults write com.cmuxterm.app sidebarState -string "followWindow"
+
+# Theme — Snazzy for both light and dark mode
+defaults write com.cmuxterm.app terminalThemeLight -string "Snazzy"
+defaults write com.cmuxterm.app terminalThemeDark -string "Snazzy"
+
+# Privacy — disable anonymous telemetry
+defaults write com.cmuxterm.app sendAnonymousTelemetry -bool false
+
+# Browser — open all links in the system browser, not cmux's built-in one
+defaults write com.cmuxterm.app browserInterceptTerminalOpenCommandInCmuxBrowser -bool false
+defaults write com.cmuxterm.app browserOpenSidebarPullRequestLinksInCmuxBrowser -bool false
+defaults write com.cmuxterm.app browserOpenTerminalLinksInCmuxBrowser -bool false
+defaults write com.cmuxterm.app browserSearchSuggestionsEnabled -bool false
+
+# Socket — cmux-only mode (no external tmux session control)
+defaults write com.cmuxterm.app socketControlMode -string "cmuxOnly"
+
+###############################################################################
 # Kill affected applications                                                  #
 ###############################################################################
 
