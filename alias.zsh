@@ -1,5 +1,7 @@
 alias cat="bat"
 
+alias claude='claude --permission-mode plan --allow-dangerously-skip-permissions'
+
 alias dc="docker compose"
 
 alias dce="docker compose exec"
