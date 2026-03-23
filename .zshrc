@@ -113,8 +113,6 @@ source <(fzf --zsh)
 # ── compose RPROMPT (after direnv so DIRENV_DIR is current) ─────────
 _compose_rprompt() {
   local parts=()
-  [[ -n "$CLAUDE_CONFIG_DIR" && "$CLAUDE_CONFIG_DIR" != "$HOME/.claude" ]] \
-    && parts+=("%F{183}✦ ${CLAUDE_CONFIG_DIR/#$HOME/~}%f")
   [[ -n "$_cached_node_version" ]] && parts+=("%F{green}⬢ $_cached_node_version%f")
   if (( ${#parts} )); then
     RPROMPT=$'%{\e[1A%}'"${(j: :)parts}"$'%{\e[1B%}'

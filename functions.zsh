@@ -22,16 +22,6 @@ function carrot_prod () {
   )
 }
 
-function claude() {
-  local cfg
-  case "$PWD" in
-    "$HOME/code/git/oncarrot"/*) cfg="$HOME/.claude-carrot" ;;
-    *)                           cfg="$HOME/.claude" ;;
-  esac
-
-  CLAUDE_CONFIG_DIR="$cfg" command claude "$@"
-}
-
 function dark-mode() {
   osascript -e 'tell app "System Events" to tell appearance preferences to set dark mode to not dark mode'
 }
