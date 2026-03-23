@@ -37,10 +37,6 @@ function flushdns() {
   sudo killall -HUP mDNSResponder
 }
 
-function ssh-add-keychain() {
-  ssh-add --apple-use-keychain
-}
-
 function forecast() {
   curl 'https://wttr.in/~Winston-Salem'
 }
