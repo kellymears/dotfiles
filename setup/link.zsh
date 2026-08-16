@@ -5,6 +5,7 @@ set -euo pipefail
 
 dotfiles_dir="$HOME/.dotfiles"
 vscode_user_dir="$HOME/Library/Application Support/Code/User"
+ghostty_dir="$HOME/Library/Application Support/com.mitchellh.ghostty"
 
 link() {
   local src="$1"
@@ -20,7 +21,7 @@ link() {
     return 1
   fi
 
-  ln -sf "$src" "$dest"
+  ln -sfn "$src" "$dest"
   echo "LINK: $dest -> $src"
 }
 
@@ -28,6 +29,13 @@ link "$dotfiles_dir/.zshrc"                         "$HOME/.zshrc"
 link "$dotfiles_dir/config/.gitconfig"              "$HOME/.gitconfig"
 link "$dotfiles_dir/config/gitignore_global"         "$HOME/.gitignore"
 link "$dotfiles_dir/config/.hushlogin"              "$HOME/.hushlogin"
+
+# Ghostty ignores XDG_CONFIG_HOME when launched from the Dock, so link into
+# Application Support. `shaders` must be linked too — Ghostty resolves the
+# relative `custom-shader` path against the config's directory as given.
+mkdir -p "$ghostty_dir"
+link "$dotfiles_dir/config/ghostty/config"  "$ghostty_dir/config"
+link "$dotfiles_dir/config/ghostty/shaders" "$ghostty_dir/shaders"
 
 if [[ -d "$vscode_user_dir" ]]; then
   link "$dotfiles_dir/config/vscode/settings.json"    "$vscode_user_dir/settings.json"

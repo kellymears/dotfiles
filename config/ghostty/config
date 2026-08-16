@@ -1,0 +1,23 @@
+background                  = 000000
+background-opacity          = 1
+cursor-style                = block
+
+font-family                 = 
+font-family                 = MonaspiceNe NFM Light
+
+keybind                     = global:option+space=toggle_visibility
+
+macos-non-native-fullscreen = true
+# macos-titlebar-style      = hidden
+
+# Prevent shell integration from forcing the cursor to `block`
+shell-integration-features  = no-cursor
+
+theme                       = Snazzy
+
+# VT520 phosphor filter (shaders/vt520.glsl) — restart Ghostty to apply shader edits
+custom-shader               = shaders/vt520.glsl
+custom-shader-animation     = true
+window-colorspace           = display-p3
+window-padding-x            = 4
+window-padding-y            = 2
