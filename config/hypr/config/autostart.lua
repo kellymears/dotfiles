@@ -7,9 +7,10 @@ hl.on("hyprland.start", function ()
     hl.exec_cmd("xhost +SI:localuser:root")
 end)
 
--- Scratchpad terminal, parked in the `term` special workspace (SUPER + `).
--- single-instance must be off or this window joins the existing process and
--- the title rule above never sees it.
+-- 1Password, started to the tray. `op` is load-bearing for every Carrot build
+-- (MISo injects secrets via `op inject`), and the CLI talks to the desktop
+-- app -- if it is not running, builds fail with "cannot connect to 1Password
+-- app" partway through.
 hl.on("hyprland.start", function()
-    hl.exec_cmd("ghostty --gtk-single-instance=false --title=scratchterm")
+    hl.exec_cmd("1password --silent")
 end)

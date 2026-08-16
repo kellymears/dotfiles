@@ -116,13 +116,8 @@ hl.window_rule({
 })
 
 -- Scratchpads -------------------------------------------------------------
--- Matched by title, not class: ghostty runs --gtk-single-instance by default,
--- so a plain `exec [workspace special:x]` rule never applies (the window is
--- created by the already-running process, not the one we launched).
-hl.window_rule({
-    match     = { title = "^(scratchterm)$" },
-    workspace = "special:term",
-    float     = true,
-    size      = { "monitor_w*0.72", "monitor_h*0.72" },
-    center    = true,
-})
+-- Populate them by hand with SUPER+SHIFT+` / N / M. Auto-launching a terminal
+-- into one does not work with ghostty: --gtk-single-instance means the window
+-- is created by the already-running process, so neither --title nor --class
+-- applies and no window rule can match it. A terminal that honours --class
+-- (kitty) could be auto-placed here instead.
