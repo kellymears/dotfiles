@@ -14,3 +14,9 @@ hl.env("TERMINAL", "ghostty")
 
 -- Chromeless: Qt draws its own titlebar on Wayland unless told not to.
 hl.env("QT_WAYLAND_DISABLE_WINDOWDECORATION", "1")
+
+-- Electron/Chromium apps (1Password, Discord, Obsidian, Chrome) default to
+-- XWayland, where they render at 1x and get upscaled by the compositor --
+-- visibly blurry at scale 1.5 on a 4K panel. These make them go native.
+hl.env("ELECTRON_OZONE_PLATFORM_HINT", "auto")
+hl.env("MOZ_ENABLE_WAYLAND", "1")
