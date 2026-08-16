@@ -20,3 +20,7 @@ hl.env("QT_WAYLAND_DISABLE_WINDOWDECORATION", "1")
 -- visibly blurry at scale 1.5 on a 4K panel. These make them go native.
 hl.env("ELECTRON_OZONE_PLATFORM_HINT", "auto")
 hl.env("MOZ_ENABLE_WAYLAND", "1")
+
+-- CachyOS ships BROWSER=firefox in ~/.config/uwsm/env (from /etc/skel).
+-- Declared here too so the tracked config is the source of truth.
+hl.env("BROWSER", "zen-browser")
