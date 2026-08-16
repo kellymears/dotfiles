@@ -1,40 +1,24 @@
 source $HOME/.dotfiles/env/env.zsh
-source $HOME/.dotfiles/env/secret.zsh
+# Not in the repo — absent on a freshly cloned machine.
+[[ -f $HOME/.dotfiles/env/secret.zsh ]] && source $HOME/.dotfiles/env/secret.zsh
 
-typeset -U PATH path
-export path=(
-  /Library/Apple/usr/bin
-  /System/Cryptexes/App/usr/bin
-  /var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin
-  /var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin
-  /var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin
-  /Library/Frameworks/Mono.framework/Versions/Current/Commands
+# ── platform ─────────────────────────────────────────────────────────
+# PATH, XDG layout, package-manager glue, and the antidote location all
+# differ per OS. Each file is responsible for setting $antidote_dir.
+case "$OSTYPE" in
+  darwin*) source $HOME/.dotfiles/env/darwin.zsh ;;
+  linux*)  source $HOME/.dotfiles/env/linux.zsh  ;;
+esac
 
-  /opt/homebrew/opt/rustup/bin
-  /opt/homebrew/bin
-  /opt/homebrew/sbin
-  /usr/local/MacGPG2/bin
-
-  /usr/local/bin
-  /usr/bin
-  /bin
-  /usr/sbin
-  /sbin
-
-  $HOME/.local/bin
-  $HOME/.cargo/bin
-)
-
-antidote_dir=/opt/homebrew/opt/antidote
 zsh_plugins=$HOME/.dotfiles/.zsh_plugins
 
-source $antidote_dir/share/antidote/antidote.zsh
+source $antidote_home/antidote.zsh
 
 # Ensure the .zsh_plugins.txt file exists so you can add plugins.
 [[ -f ${zsh_plugins}.txt ]] || touch ${zsh_plugins}.txt
 
 # Lazy-load antidote from its functions directory.
-fpath=($antidote_dir/share/antidote/functions $fpath)
+fpath=($antidote_home/functions $fpath)
 autoload -Uz antidote
 
 # Generate a new static file whenever .zsh_plugins.txt is updated.
@@ -61,14 +45,9 @@ if [[ -n "$GHOSTTY_RESOURCES_DIR" ]] && (( ! $+functions[_original_prompt_pure_p
   }
 fi
 
-source $HOME/.dotfiles/brew.zsh;
 source $HOME/.dotfiles/alias.zsh;
 source $HOME/.dotfiles/functions.zsh;
 source $HOME/.dotfiles/completions/init.zsh;
-
-# Added by OrbStack: command-line tools and integration
-# Comment this line if you don't want it to be added again.
-source ~/.orbstack/shell/init.zsh 2>/dev/null || :
 
 # ── tool runtime manager ─────────────────────────────────────────────
 (( $+commands[mise] )) && eval "$(mise activate zsh)"
@@ -90,13 +69,33 @@ _update_node_version
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND='fd --type d --hidden --follow --exclude .git'
-source <(fzf --zsh)
+(( $+commands[fzf] )) && source <(fzf --zsh)
 
 # ── atuin (after fzf so atuin claims ctrl-r) ─────────────────────────
 (( $+commands[atuin] )) && eval "$(atuin init zsh)"
 
 # ── zoxide ───────────────────────────────────────────────────────────
 (( $+commands[zoxide] )) && eval "$(zoxide init zsh)"
+
+# ── word movement ────────────────────────────────────────────────────
+# zsh picks vi keybindings when $VISUAL/$EDITOR contains "vi" — and "nvim"
+# does — so `main` is aliased to `viins`. In vi mode a bare ESC leaves
+# insert mode, and Alt+<key> is transmitted as an ESC-prefixed sequence.
+# Without bindings for these, zsh eats the ESC, drops to vicmd (Pure flips
+# ❯ to ❮) and discards the rest. Binding them keeps insert mode intact.
+#
+# Only visible on Linux: Ghostty's macos-option-as-alt defaults to false, so
+# on macOS Option+arrow never sends a bare ESC in the first place.
+#
+# Both encodings are bound because terminals disagree: CSI form (xterm-style,
+# what Ghostty/kitty send) and the older meta-prefixed form.
+bindkey '^[[1;3D' backward-word     # alt+left
+bindkey '^[[1;3C' forward-word      # alt+right
+bindkey '^[^[[D'  backward-word     # alt+left  (meta-prefixed)
+bindkey '^[^[[C'  forward-word      # alt+right (meta-prefixed)
+bindkey '^[b'     backward-word     # meta-b
+bindkey '^[f'     forward-word      # meta-f
+bindkey '^[^?'    backward-kill-word  # alt+backspace — delete previous word
 
 # ── direnv (must be last) ────────────────────────────────────────────
 # Hook registers _direnv_hook on precmd+chpwd; override to silence stderr
@@ -105,7 +104,7 @@ source <(fzf --zsh)
   eval "$(direnv hook zsh)"
   _direnv_hook() {
     trap -- '' SIGINT
-    eval "$("/opt/homebrew/bin/direnv" export zsh 2>/dev/null)"
+    eval "$(direnv export zsh 2>/dev/null)"
     trap - SIGINT
   }
 }
@@ -121,3 +120,12 @@ _compose_rprompt() {
   fi
 }
 add-zsh-hook precmd _compose_rprompt
+
+# bun completions
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init zsh)"; fi
