@@ -8,7 +8,8 @@ config_src="$dotfiles_dir/config"
 config_dest="$HOME/.config"
 
 # macOS-only: either the path has no Linux analogue or the tool isn't here.
-skip=(homebrew swiftpm configstore intelephense vscode)
+# ghostty is handled explicitly below rather than linked as a whole directory.
+skip=(homebrew swiftpm configstore intelephense vscode ghostty)
 
 link() {
   local src="$1"
@@ -56,6 +57,16 @@ for src in "$config_src"/*(N/); do
 done
 
 link "$config_src/starship.toml" "$config_dest/starship.toml"
+
+# Ghostty: linked file-by-file rather than as a directory, for two reasons.
+# Ghostty only ever reads a file named `config`, so the Linux entry point is
+# linked under that name; and ~/.config/ghostty must stay a real directory
+# because noctalia writes generated themes into themes/, which is machine
+# state we do not track.
+mkdir -p "$config_dest/ghostty"
+link "$config_src/ghostty/linux.conf"  "$config_dest/ghostty/config"
+link "$config_src/ghostty/shared.conf" "$config_dest/ghostty/shared.conf"
+link "$config_src/ghostty/shaders"     "$config_dest/ghostty/shaders"
 
 echo
 echo "Done. Any REFUSE lines above are pre-existing configs (CachyOS ships its"

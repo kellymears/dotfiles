@@ -1,23 +1,27 @@
-background                  = 000000
+# macOS entry point. Linked to ~/Library/Application Support/com.mitchellh.ghostty/
+# by setup/link.zsh, because Ghostty ignores XDG_CONFIG_HOME when launched
+# from the Dock.
+#
+# Linux uses linux.conf instead; anything belonging to both goes in shared.conf.
+
+config-file                 = shared.conf
+
 background-opacity          = 1
-cursor-style                = block
 
-font-family                 = 
-font-family                 = MonaspiceNe NFM Light
-
+# Global show/hide. macOS-only: it needs the system-wide hotkey API, and on
+# Linux the compositor owns global bindings (bind it in Hyprland instead).
 keybind                     = global:option+space=toggle_visibility
 
 macos-non-native-fullscreen = true
 # macos-titlebar-style      = hidden
 
-# Prevent shell integration from forcing the cursor to `block`
-shell-integration-features  = no-cursor
+# Wide-gamut on Apple displays. Ignored elsewhere.
+window-colorspace           = display-p3
 
 theme                       = Snazzy
 
-# VT520 phosphor filter (shaders/vt520.glsl) — restart Ghostty to apply shader edits
+# VT520 phosphor filter — restart Ghostty to apply shader edits.
+# The `shaders` directory is symlinked alongside this file for the same
+# relative-path reason described in shared.conf.
 custom-shader               = shaders/vt520.glsl
 custom-shader-animation     = true
-window-colorspace           = display-p3
-window-padding-x            = 4
-window-padding-y            = 2

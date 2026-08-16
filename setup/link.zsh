@@ -34,8 +34,9 @@ link "$dotfiles_dir/config/.hushlogin"              "$HOME/.hushlogin"
 # Application Support. `shaders` must be linked too — Ghostty resolves the
 # relative `custom-shader` path against the config's directory as given.
 mkdir -p "$ghostty_dir"
-link "$dotfiles_dir/config/ghostty/config"  "$ghostty_dir/config"
-link "$dotfiles_dir/config/ghostty/shaders" "$ghostty_dir/shaders"
+link "$dotfiles_dir/config/ghostty/config"      "$ghostty_dir/config"
+link "$dotfiles_dir/config/ghostty/shared.conf" "$ghostty_dir/shared.conf"
+link "$dotfiles_dir/config/ghostty/shaders"     "$ghostty_dir/shaders"
 
 if [[ -d "$vscode_user_dir" ]]; then
   link "$dotfiles_dir/config/vscode/settings.json"    "$vscode_user_dir/settings.json"
