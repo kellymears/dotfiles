@@ -40,3 +40,9 @@
 	name = Kelly Mears
 	email = developers@tinypixel.dev
 	signingkey = 3DEF24B5
+[credential "https://github.com"]
+	helper = 
+	helper = !/opt/homebrew/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/opt/homebrew/bin/gh auth git-credential
