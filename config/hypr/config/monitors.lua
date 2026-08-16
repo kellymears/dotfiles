@@ -2,28 +2,34 @@
 -- Outputs are named in variables.lua (MONITOR1..3). Find them with `hyprctl monitors`.
 --
 -- POSITIONS ARE IN *LOGICAL* PIXELS, NOT PHYSICAL ONES.
--- At scale 2 each 3840px panel is 1920 logical px wide, so the three
--- monitors must start at 0 / 1920 / 3840. If you change `scale`, you MUST
+-- At scale 1.5 each 3840px panel is 2560 logical px wide, so the three
+-- monitors must start at 0 / 2560 / 5120. If you change `scale`, you MUST
 -- recompute these or you leave dead gaps between displays and the mouse
--- cannot cross from one to the next. (At the previous 1.5 they were
--- 2560 wide, starting 0 / 2560 / 5120.)
+-- cannot cross from one to the next. (At scale 2 they would be 1920 wide,
+-- starting 0 / 1920 / 3840.)
 --
--- SCALE IS 2, NOT 1.5, ON PURPOSE.
+-- 1.5 IS A DELIBERATE TRADEOFF, AND IT COSTS A LITTLE SHARPNESS.
 --
--- 1.5 is a fractional scale: a window 1385 logical px tall wants 2077.5
--- physical px, so the compositor resamples the whole surface onto a half
--- pixel and everything picks up a slight softness. Integer scale maps
--- 1:1 with no resampling, and apps that ship 1x/2x asset tiers (Electron
--- ones especially -- Discord avatars, emoji, icons) get the real 2x
--- images instead of an upscaled 1x.
+-- It is a fractional scale, so any window whose logical size x 1.5 is not
+-- a whole number cannot land on physical pixels -- a window 1385 logical
+-- px tall wants 2077.5 -- and the compositor resamples the whole surface
+-- onto that half pixel. Everything picks up a slight softness. Apps that
+-- ship only 1x/2x asset tiers (Electron ones especially -- Discord
+-- avatars, emoji, icons) also get an upscaled 1x rather than a real 2x.
 --
--- The tradeoff is a 1920x1080 logical workspace per panel instead of
--- 2560x1440, so everything is ~33% larger. Claw that back per-app with
--- each app's own zoom (Discord Settings > Appearance > Zoom ~75%,
--- Ctrl+- in browsers) -- page zoom shrinks the layout while rasterizing
--- at the full 2x, so you keep the sharpness. Do NOT reach for
--- --force-device-scale-factor to do this: on Wayland it multiplies with
--- the compositor scale rather than replacing it, so it just zooms.
+-- Scale 2 fixes both: 1:1 pixel mapping, no resampling, true 2x assets.
+-- It was tried and reverted -- a 1920x1080 logical workspace per panel is
+-- simply too big to work in, and clawing the density back via per-app zoom
+-- means configuring every app one at a time. 2560x1440 with a touch of
+-- softness wins. Revisit if per-app zoom ever stops being a chore.
+--
+-- What does NOT help, so don't bother re-testing it: chasing this with
+-- --force-device-scale-factor on an Electron/Chromium app. On Wayland it
+-- multiplies with the compositor scale instead of replacing it (measured:
+-- 1.5 -> DPR 2.25, 2 -> DPR 3.0), so it is a zoom knob, not a sharpness
+-- knob. Those apps already render at the full 1.5 via fractional-scale-v1
+-- as long as they are native Wayland -- see ELECTRON_OZONE_PLATFORM_HINT
+-- in environment.lua, which is the setting that actually matters.
 --
 -- IMPORTANT: these are pinned to 144Hz deliberately.
 --
@@ -40,28 +46,28 @@ hl.monitor({
     output    = MONITOR1,
     mode      = "3840x2160@144",
     position  = "0x0",
-    scale     = "2",
+    scale     = "1.5",
 })
 
 hl.monitor({
     output    = MONITOR2,
     mode      = "3840x2160@144",
-    position  = "1920x0",
-    scale     = "2",
+    position  = "2560x0",
+    scale     = "1.5",
 })
 
 hl.monitor({
     output    = MONITOR3,
     mode      = "3840x2160@144",
-    position  = "3840x0",
-    scale     = "2",
+    position  = "5120x0",
+    scale     = "1.5",
 })
 
 -- Fallback for anything not listed above (e.g. the HDMI port).
--- Deliberately left at 1.5, not raised to 2 with the three panels above:
--- this matches an unknown display, and 2 on a 1080p monitor would leave a
--- 960x540 workspace. Give it its own hl.monitor block if you plug in
--- something that wants a different scale.
+-- At 2, so it does not track the 1.5 on the three panels above. Fine for
+-- another 4K panel; on a 1080p display it would leave a 960x540 workspace.
+-- Give anything you actually plug in its own hl.monitor block rather than
+-- relying on this.
 hl.monitor({
     output    = "",
     mode      = "preferred",
