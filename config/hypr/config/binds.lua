@@ -152,26 +152,6 @@ hl.bind(mainMod .. " + mouse_up",             hl.dsp.focus({ workspace = "m+1" }
 hl.bind(mainMod .. " + CONTROL + mouse_up",   hl.dsp.focus({ workspace = "m-1" }))
 hl.bind(mainMod .. " + CONTROL + mouse_down", hl.dsp.focus({ workspace = "m+1" }))
 
--- Special workspace (scratchpad)
-hl.bind(mainMod .. " + SHIFT + S", hl.dsp.window.move({ workspace = "special" }))
-hl.bind(mainMod .. " + S",         hl.dsp.workspace.toggle_special())
-
----- SCRATCHPADS ----
--- Special workspaces float above whatever you are looking at, on whichever
--- monitor has focus, and vanish on the same key. decorations.lua already
--- styles them (dim_special = 0.3, blur.special = true).
---
---   SUPER + `      terminal scratchpad
---   SUPER + N      notes scratchpad
---   SUPER + M      music/misc scratchpad
---   SUPER + SHIFT + <same key>   send the focused window there
-hl.bind(mainMod .. " + grave",         hl.dsp.workspace.toggle_special("term"))
-hl.bind(mainMod .. " + N",             hl.dsp.workspace.toggle_special("notes"))
-hl.bind(mainMod .. " + M",             hl.dsp.workspace.toggle_special("misc"))
-hl.bind(mainMod .. " + SHIFT + grave", hl.dsp.window.move({ workspace = "special:term" }))
-hl.bind(mainMod .. " + SHIFT + N",     hl.dsp.window.move({ workspace = "special:notes" }))
-hl.bind(mainMod .. " + SHIFT + M",     hl.dsp.window.move({ workspace = "special:misc" }))
-
 -- Workspace overview (hymission plugin — hyprexpo's community successor).
 -- Guarded: binds.lua must still load if the plugin isn't (fresh machine,
 -- hyprpm rebuild pending after a Hyprland update).

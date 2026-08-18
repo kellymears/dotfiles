@@ -20,5 +20,3 @@ hl.animation({ leaf = "windows",             enabled = true, speed = 3, spring =
 -- ever matters.
 hl.animation({ leaf = "borderangle",         enabled = true, speed = 50, bezier = "linear", style = "loop" })
 hl.animation({ leaf = "workspaces",          enabled = true, speed = 5, bezier = "quick", style = "slide" })
-hl.animation({ leaf = "specialWorkspaceIn",  enabled = true, speed = 2, bezier = "quick", style = "slide top"})
-hl.animation({ leaf = "specialWorkspaceOut", enabled = true, speed = 2, bezier = "quick", style = "slide bottom"})

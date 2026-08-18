@@ -38,7 +38,6 @@ hl.config({
         },
     },
     decoration = {
-        dim_special = 0.3,
         rounding = 10,
         -- Unfocused-window de-emphasis is opacity only -- dim_inactive is
         -- false, so dim_strength (0.5) is inert and changing it does
@@ -50,7 +49,6 @@ hl.config({
         blur = {
             size = 5,
             passes = 4,
-            special = true,
             -- Frosted-glass tuning. ignore_opacity keeps blur at full
             -- strength behind translucent windows instead of scaling it
             -- with window opacity -- without it the wallpaper bleeds
