@@ -171,3 +171,10 @@ hl.bind(mainMod .. " + M",             hl.dsp.workspace.toggle_special("misc"))
 hl.bind(mainMod .. " + SHIFT + grave", hl.dsp.window.move({ workspace = "special:term" }))
 hl.bind(mainMod .. " + SHIFT + N",     hl.dsp.window.move({ workspace = "special:notes" }))
 hl.bind(mainMod .. " + SHIFT + M",     hl.dsp.window.move({ workspace = "special:misc" }))
+
+-- Workspace overview (hymission plugin — hyprexpo's community successor).
+-- Guarded: binds.lua must still load if the plugin isn't (fresh machine,
+-- hyprpm rebuild pending after a Hyprland update).
+if hl.plugin and hl.plugin.hymission then
+    hl.bind(mainMod .. " + W", hl.plugin.hymission.toggle)
+end

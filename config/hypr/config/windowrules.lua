@@ -19,6 +19,25 @@ local gamingWorkspace = "name:gaming"
 hl.window_rule({ match = { content = "game" }, workspace = gamingWorkspace })
 hl.window_rule({ match = { xdg_tag = "^(.*game.*)$" }, workspace = gamingWorkspace, fullscreen_state = 2, content = "game", sync_fullscreen = true })
 hl.window_rule({ match = { class = gamingApps }, workspace = gamingWorkspace })
+
+-- gamescope tiling, TESTED AND UNRESOLVED -- do not re-try the obvious fix.
+--
+-- gamescope's own -f only fullscreens the game INSIDE gamescope; the
+-- gamescope window itself still lands tiled on the host, so you get a
+-- normal tiled window with gaps instead of borderless fullscreen. The
+-- big gamingApps rule below is supposed to cover this but matches on
+-- title = "^(.+)$", and gamescope maps its window before the game sets a
+-- title, so at map time it misses.
+--
+-- A class-only rule with fullscreen_state = 2 does NOT fix it. Tried it
+-- both in this file and live via `hyprctl eval`, with and without
+-- size = { monitor_w, monitor_h }: the rule registers without error and
+-- the window still comes up tiled at 2544x1388. fullscreen_state appears
+-- to set only the internal (client-facing) state, not to make Hyprland
+-- actually fullscreen the window.
+--
+-- Workarounds that DO work: pass -b (borderless) to gamescope, or hit
+-- Super+F inside gamescope to toggle fullscreen at runtime.
 hl.window_rule({ match = { class = "^(steam)$", title = "^(Friends List)$" }, float = true })
 hl.window_rule({ match = { class = "^(steam)$", title = "^(Launching\\.{3})$" }, float = true, center = true, workspace = gamingWorkspace })
 hl.window_rule({
@@ -113,6 +132,18 @@ hl.window_rule({
         pin        = false,
     },
     no_focus = true,
+})
+
+-- Glass layers --------------------------------------------------------------
+-- Blur the Noctalia shell surfaces (bar, dock, panels, launcher,
+-- notifications). Deliberately NOT noctalia-wallpaper. ignore_alpha skips
+-- fully/mostly transparent pixels so rounded corners don't get a square
+-- blur halo.
+hl.layer_rule({
+    name  = "glass-noctalia",
+    match = { namespace = "^(noctalia-(bar|dock|launcher|notification|attached-panel|control-center|settings|osd).*)$" },
+    blur  = true,
+    ignore_alpha = 0.3,
 })
 
 -- Scratchpads -------------------------------------------------------------

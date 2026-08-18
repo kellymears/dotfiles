@@ -24,3 +24,10 @@ hl.env("MOZ_ENABLE_WAYLAND", "1")
 -- CachyOS ships BROWSER=firefox in ~/.config/uwsm/env (from /etc/skel).
 -- Declared here too so the tracked config is the source of truth.
 hl.env("BROWSER", "zen-browser")
+
+-- Rosé Pine cursor (rose-pine-hyprcursor, AUR). HYPRCURSOR_* covers native
+-- Wayland; XCURSOR_* covers XWayland and GTK fallback.
+hl.env("HYPRCURSOR_THEME", "rose-pine-hyprcursor")
+hl.env("HYPRCURSOR_SIZE", "24")
+hl.env("XCURSOR_THEME", "BreezeX-RosePine-Linux")
+hl.env("XCURSOR_SIZE", "24")

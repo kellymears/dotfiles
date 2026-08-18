@@ -14,7 +14,11 @@ hl.curve("rubber",         { type = "spring", mass = 1, stiffness = 200,  dampen
 
 -- Animations
 hl.animation({ leaf = "global",              enabled = true, speed = 3, bezier = "quick"                 })
-hl.animation({ leaf = "windows",             enabled = true, speed = 3, spring = "easy",  style = "slide" })
+hl.animation({ leaf = "windows",             enabled = true, speed = 3, spring = "rubber", style = "popin 87%" })
+-- Iris->foam border gradient orbits the focused window. Loop means constant
+-- redraw of the border pass -- cheap, but drop this first if GPU headroom
+-- ever matters.
+hl.animation({ leaf = "borderangle",         enabled = true, speed = 50, bezier = "linear", style = "loop" })
 hl.animation({ leaf = "workspaces",          enabled = true, speed = 5, bezier = "quick", style = "slide" })
 hl.animation({ leaf = "specialWorkspaceIn",  enabled = true, speed = 2, bezier = "quick", style = "slide top"})
 hl.animation({ leaf = "specialWorkspaceOut", enabled = true, speed = 2, bezier = "quick", style = "slide bottom"})

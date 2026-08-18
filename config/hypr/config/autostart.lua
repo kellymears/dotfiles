@@ -5,6 +5,7 @@ hl.on("hyprland.start", function ()
     hl.exec_cmd("dbus-update-activation-environment --systemd --all")
     hl.exec_cmd("noctalia")
     hl.exec_cmd("xhost +SI:localuser:root")
+    hl.exec_cmd("hyprpm reload -n") -- load enabled plugins (hymission, hyprfocus)
 end)
 
 -- 1Password, started to the tray. `op` is load-bearing for every Carrot build
