@@ -1,7 +1,11 @@
 export GPG_TTY=$(tty)
-export EDITOR=nvim
 export PAGER=less
-export VISUAL=code
+
+# VS Code is the default editor everywhere. `--wait` is required: without it
+# `code` returns immediately and git/fc/crontab think you saved an empty file.
+# Linux overrides this back to nvim in a headless session — see env/linux.zsh.
+export VISUAL='code --wait'
+export EDITOR=$VISUAL
 
 # $CONFIG, $XDG_CONFIG_HOME, and $RIPGREP_CONFIG_PATH are set per-OS —
 # see env/darwin.zsh and env/linux.zsh. The two platforms resolve config

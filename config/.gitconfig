@@ -10,7 +10,10 @@
 
 [core]
 	excludesfile = ~/.gitignore
-	editor = code --wait
+	# core.editor is deliberately unset so git falls through to VISUAL/EDITOR.
+	# Those already resolve to `code --wait`, and on a headless Linux box they
+	# resolve to nvim instead (see env/linux.zsh) — hardcoding code here would
+	# override that and break `git commit` over ssh.
 
 [diff]
   tool = code
