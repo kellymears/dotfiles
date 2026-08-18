@@ -6,9 +6,11 @@ set -euo pipefail
 dotfiles_dir="$HOME/.dotfiles"
 config_src="$dotfiles_dir/config"
 config_dest="$HOME/.config"
+vscode_user_dir="$config_dest/Code/User"
 
 # macOS-only: either the path has no Linux analogue or the tool isn't here.
-# ghostty is handled explicitly below rather than linked as a whole directory.
+# ghostty and vscode are handled explicitly below rather than linked as whole
+# directories — neither tool reads a directory named after itself.
 skip=(homebrew swiftpm configstore intelephense vscode ghostty)
 
 link() {
@@ -67,6 +69,13 @@ mkdir -p "$config_dest/ghostty"
 link "$config_src/ghostty/linux.conf"  "$config_dest/ghostty/config"
 link "$config_src/ghostty/shared.conf" "$config_dest/ghostty/shared.conf"
 link "$config_src/ghostty/shaders"     "$config_dest/ghostty/shaders"
+
+# VS Code: same two files as macOS, but under ~/.config/Code/User rather than
+# Library/Application Support. The directory is created up front so the links
+# can land before VS Code's first launch.
+mkdir -p "$vscode_user_dir"
+link "$config_src/vscode/settings.json"    "$vscode_user_dir/settings.json"
+link "$config_src/vscode/keybindings.json" "$vscode_user_dir/keybindings.json"
 
 echo
 echo "Done. Any REFUSE lines above are pre-existing configs (CachyOS ships its"
