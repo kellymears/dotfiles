@@ -14,6 +14,13 @@ hl.bind(mainMod .. " + D",           hl.dsp.window.fullscreen({ mode = 1 }))
 hl.bind(mainMod .. " + F",           hl.dsp.window.fullscreen())
 hl.bind(mainMod .. " + J",           hl.dsp.layout("togglesplit"))
 
+-- Promote: make the focused window the biggest one on its workspace, by
+-- swapping it with whatever currently is. dwindle has no master slot to
+-- promote into, so this is the nearest equivalent -- see
+-- scripts/promote-window.sh for why it steps rather than jumping straight
+-- there (swapwindow takes a direction, not a target).
+hl.bind(mainMod .. " + SHIFT + Return", hl.dsp.exec_cmd("~/.config/hypr/scripts/promote-window.sh"))
+
 -- Change focus
 hl.bind(mainMod .. " + Left",  hl.dsp.focus({ direction = "left" }))
 hl.bind(mainMod .. " + Right", hl.dsp.focus({ direction = "right" }))
@@ -30,6 +37,7 @@ hl.bind(mainMod .. " + SHIFT + Down",                 hl.dsp.window.move({ direc
 hl.bind(mainMod .. " + SHIFT + 1",                    hl.dsp.window.move({ monitor = MONITOR1 }))
 hl.bind(mainMod .. " + SHIFT + 2",                    hl.dsp.window.move({ monitor = MONITOR2 }))
 hl.bind(mainMod .. " + SHIFT + 3",                    hl.dsp.window.move({ monitor = MONITOR3 }))
+hl.bind(mainMod .. " + SHIFT + 4",                    hl.dsp.window.move({ monitor = MONITOR_TV }))
 hl.bind(mainMod .. " + SHIFT + mouse_up",             hl.dsp.window.move({ monitor   = "-1" }))
 hl.bind(mainMod .. " + SHIFT + mouse_down",           hl.dsp.window.move({ monitor   = "+1" }))
 hl.bind(mainMod .. " + CONTROL + SHIFT + Right",      hl.dsp.window.move({ workspace = "m+1" }))
@@ -70,10 +78,8 @@ hl.bind(mainMod .. " + code:86", function() zoomfunction(0.3) end, { repeating =
 
 hl.bind(mainMod .. " + Return",     hl.dsp.exec_cmd(launchPrefix .. TERMINAL))
 hl.bind(mainMod .. " + E",          hl.dsp.exec_cmd(launchPrefix .. FILE_MANAGER))
-hl.bind(mainMod .. " + T",          hl.dsp.exec_cmd(launchPrefix .. EDITOR))
 hl.bind(mainMod .. " + C",          hl.dsp.exec_cmd(launchPrefix .. CALCULATOR))
 hl.bind("XF86Calculator",           hl.dsp.exec_cmd(launchPrefix .. CALCULATOR))
-hl.bind(mainMod .. " + W",          hl.dsp.exec_cmd(launchPrefix .. BROWSER))
 hl.bind("CONTROL + SHIFT + Escape", hl.dsp.exec_cmd(launchPrefix .. TERMINAL .. " -e btop"))
 hl.bind(mainMod .. " + Z",          hl.dsp.exec_cmd(noctCall .. "settings-toggle"))
 hl.bind(mainMod .. " + X",          hl.dsp.exec_cmd(noctCall .. "panel-toggle control-center"))
@@ -107,9 +113,20 @@ hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd(noctCall .. "brightness-down"),
 -------------------
 
 -- Screen Capture
-hl.bind(mainMod .. " + P",     hl.dsp.exec_cmd("hyprpicker -a -n"))
-hl.bind("Print",               hl.dsp.exec_cmd(noctCall .. "screenshot-region"))
-hl.bind(mainMod .. " + Print", hl.dsp.exec_cmd(noctCall .. "screenshot-fullscreen"))
+hl.bind(mainMod .. " + P", hl.dsp.exec_cmd("hyprpicker -a -n"))
+
+-- Capture. Three direct binds, no submap. SUPER+SHIFT+S is what the NuPhy
+-- Node 75's screenshot key ACTUALLY emits (verified via evdev: it macros the
+-- Windows snipping combo Meta+Shift+S, never a Print keysym), so the physical
+-- key = full-screen shot, classic PrtSc semantics. Screenshots route through
+-- satty for annotation; the record bind toggles (same key stops + saves).
+local shot = "~/.config/hypr/scripts/screenshot.sh"
+local rec  = "~/.config/hypr/scripts/screenrec.sh"
+
+hl.bind(mainMod .. " + SHIFT + S", hl.dsp.exec_cmd(shot .. " screen")) -- S: focused Screen
+hl.bind(mainMod .. " + SHIFT + A", hl.dsp.exec_cmd(shot .. " window")) -- A: Active window
+hl.bind(mainMod .. " + SHIFT + R", hl.dsp.exec_cmd(rec  .. " screen")) -- R: Record screen
+hl.bind("Print", hl.dsp.exec_cmd(shot .. " screen")) -- keyboards with a real PrtSc
 
 -- Theming and Wallpaper
 hl.bind(mainMod .. " + SHIFT + W", hl.dsp.exec_cmd(noctCall .. "panel-toggle wallpaper"))
@@ -128,6 +145,21 @@ hl.bind(mainMod .. " + A", hl.dsp.exec_cmd(noctCall .. "panel-toggle control-cen
 hl.bind(mainMod .. " + 1", hl.dsp.focus({ monitor = MONITOR1 }))
 hl.bind(mainMod .. " + 2", hl.dsp.focus({ monitor = MONITOR2 }))
 hl.bind(mainMod .. " + 3", hl.dsp.focus({ monitor = MONITOR3 }))
+hl.bind(mainMod .. " + 4", hl.dsp.focus({ monitor = MONITOR_TV }))
+
+-- Living-room TV on/off. There is no way to detect the TV's own power button
+-- -- it keeps HPD, EDID, and its network services alive when the screen is
+-- off, so nothing on this end ever notices. See scripts/tv-toggle.sh.
+-- Off migrates windows back to the panels; on runs the drop/enable/restore
+-- workaround documented in monitors.lua.
+hl.bind(mainMod .. " + SHIFT + T", hl.dsp.exec_cmd("~/.config/hypr/scripts/tv-toggle.sh"))
+
+-- Center stage: float the FOCUSED window onto the center panel, pinned, so
+-- you are looking at the webcam while on a call. Second press puts it back on
+-- its old workspace with its old tiled/floating state. Works on any window --
+-- Slack, a browser, a doc -- rather than needing a workspace per app.
+hl.bind(mainMod .. " + H", hl.dsp.exec_cmd("~/.config/hypr/scripts/center-stage.sh"))
+hl.bind(mainMod .. " + SHIFT + H", hl.dsp.exec_cmd("~/.config/hypr/scripts/center-stage.sh --full"))
 
 -- Focus on workspace number
 -- Absolute
