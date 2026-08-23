@@ -73,6 +73,27 @@ hl.window_rule({ match = { class = "^(org\\.kde\\.keditfiletype)$" }, float = tr
 hl.window_rule({ match = { class = "^(org\\.kde\\.ark)$" }, size = { "max(monitor_w, monitor_h)*0.40", "min(monitor_w, monitor_h)*0.40" } })
 hl.window_rule({ match = { class = "^(.*satty.*)$", title = "^(Satty)$" }, min_size = { "max(monitor_w, monitor_h)*0.35", "min(monitor_w, monitor_h)*0.35" }, float = true })
 hl.window_rule({ match = { class = "^(dev\\.)?(noctalia\\.Noctalia(\\.Settings)?)$" }, float = true, size = { "monitor_w*0.70", "monitor_h*0.70" } })
+
+-- vicinae launcher. It is an ordinary xdg-shell window here, NOT a layer
+-- surface: vicinae 0.26.3 segfaults in
+-- LayerShellQt::QWaylandLayerSurface::requestActivate() on the second close of
+-- any given process, so launcher_window.layer_shell.enabled is false in
+-- ~/.config/vicinae/settings.json. Turn layer shell back on once that is fixed
+-- upstream and this rule becomes unnecessary -- a layer_rule would be needed
+-- instead, since window rules never match layer surfaces.
+--
+-- Float + centre would be inherited from the generic floating rule at the top
+-- of this file, but it is stated explicitly so the launcher does not silently
+-- start tiling if that rule ever changes. Blur comes from the global
+-- decoration.blur (the window is translucent at opacity 0.8), so it needs no
+-- rule of its own.
+hl.window_rule({
+    name  = "vicinae-launcher",
+    match = { class = "^(vicinae)$" },
+    float = true,
+    center = true,
+    pin = true,
+})
 hl.window_rule({
     match = {
         class = "^(org\\.kde\\.dolphin)$",
@@ -137,15 +158,6 @@ hl.window_rule({
 -- Glass layers --------------------------------------------------------------
 -- ignore_alpha skips fully/mostly transparent pixels so rounded corners don't
 -- get a square blur halo.
-
--- vicinae draws as a layer surface (namespace "vicinae"), not a window, so it
--- takes a layer_rule rather than a window_rule.
-hl.layer_rule({
-    name  = "glass-vicinae",
-    match = { namespace = "^(vicinae)$" },
-    blur  = true,
-    ignore_alpha = 0.3,
-})
 
 -- The Noctalia shell surfaces (bar, dock, panels, launcher, notifications).
 -- Deliberately NOT noctalia-wallpaper.
