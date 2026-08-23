@@ -14,26 +14,33 @@ hl.config({
         extend_border_grab_area = 10,
         resize_on_border = true,
         col = {
+            -- Palette-driven, not hardcoded: ROSEPRIMARY/ROSESECONDARY come
+            -- from the live Noctalia palette via colors.lua, so switching
+            -- palette in Noctalia re-tints the borders along with everything
+            -- else. Under "Rosé Pine" this is rose -> foam.
             active_border = {
-                colors = { ROSEIRIS, ROSEFOAM },
+                colors = { ROSEPRIMARY, ROSESECONDARY },
                 angle = 45,
             },
             inactive_border = GLASSEDGE,
         },
     },
+    -- Groups were still on the stock CachyOS blue/green, which is the one
+    -- place the desktop visibly stopped being Rosé Pine. Now on the palette:
+    -- secondary for active, error for locked, muted for inactive.
     group = {
         col = {
-            border_active = CACHYLBLUE,
-            border_inactive = CACHYGRAY,
-            border_locked_active = CACHYDBLUE,
-            border_locked_inactive = CACHYGRAY,
+            border_active = ROSESECONDARY,
+            border_inactive = GLASSEDGE,
+            border_locked_active = ROSEERROR,
+            border_locked_inactive = GLASSEDGE,
         },
         groupbar = {
             col = {
-                active = CACHYLGREEN,
-                inactive = CACHYGRAY,
-                locked_active = CACHYDBLUE,
-                locked_inactive = CACHYGRAY,
+                active = ROSESECONDARY,
+                inactive = "rgba(" .. ROSE_MUTED .. "ff)",
+                locked_active = ROSEERROR,
+                locked_inactive = "rgba(" .. ROSE_MUTED .. "ff)",
             },
         },
     },
