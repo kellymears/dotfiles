@@ -1,0 +1,51 @@
+# lazygit -- Rosé Pine.
+#
+# lazygit has no theme file format: colors are named directly under gui.theme,
+# either as ANSI names or hex. Hex is used here so the panel chrome matches the
+# palette exactly rather than drifting with the terminal's 16 colours.
+gui:
+  theme:
+    # Iris on the focused panel, muted on the rest -- the same
+    # active/inactive relationship the window borders use.
+    activeBorderColor:
+      - "#c4a7e7"
+      - bold
+    inactiveBorderColor:
+      - "#6e6a86"
+    searchingActiveBorderColor:
+      - "#f6c177"
+      - bold
+    optionsTextColor:
+      - "#9ccfd8"
+    # Selection is a background shift, not a foreground one: the file list is
+    # already colour-coded by git status and recolouring text would fight it.
+    selectedLineBgColor:
+      - "#26233a"
+    inactiveViewSelectedLineBgColor:
+      - "#21202e"
+    cherryPickedCommitBgColor:
+      - "#403d52"
+    cherryPickedCommitFgColor:
+      - "#ebbcba"
+    markedBaseCommitBgColor:
+      - "#403d52"
+    markedBaseCommitFgColor:
+      - "#f6c177"
+    unstagedChangesColor:
+      - "#eb6f92"
+    defaultFgColor:
+      - "#e0def4"
+
+  # Rounded borders, to match the window rounding in hypr/config/decorations.
+  border: "rounded"
+  showRandomTip: false
+  nerdFontsVersion: "3"
+
+git:
+  # delta as the diff pager. Configured explicitly rather than with
+  # `useConfig: true`, because that reads a [delta] section out of .gitconfig
+  # and there isn't one -- delta is installed but not wired into git globally.
+  # If that changes, switch to useConfig so the two stay in sync.
+  paging:
+    colorArg: always
+    pager: "delta --dark --paging=never --syntax-theme=rose-pine --line-numbers"

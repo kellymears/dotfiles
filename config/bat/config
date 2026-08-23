@@ -1,0 +1,17 @@
+# bat -- `cat` with syntax highlighting. Used directly, and as the previewer
+# behind fzf and delta, so its theme is more visible than it looks.
+
+# Rosé Pine. bat ships no rose-pine theme; themes/rose-pine.tmTheme is the
+# tmtheme from the yazi flavor (same upstream, rose-pine/yazi), which is a
+# plain TextMate theme and works unmodified here.
+#
+# A custom theme only takes effect after `bat cache --build`, which compiles
+# themes/ into ~/.cache/bat/themes.bin. Re-run it after changing the file --
+# editing the .tmTheme alone does nothing.
+--theme="rose-pine"
+
+# Show line numbers and git modification markers, but no heavy box drawing.
+--style="numbers,changes,header"
+
+# Don't wrap; long lines scroll. Easier to read code and diffs.
+--wrap=never
