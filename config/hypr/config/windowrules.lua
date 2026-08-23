@@ -93,6 +93,12 @@ hl.window_rule({
     float = true,
     center = true,
     pin = true,
+    -- No scale-in. The global windows animation is spring "rubber" +
+    -- "popin 87%", which on a centred, pinned launcher has nowhere to travel,
+    -- so it reads as the window wobbling in place. "popin 100%" starts the
+    -- window at full size, leaving the geometry animation with nothing to do
+    -- while the separate fade animation still runs -- i.e. it just fades in.
+    animation = "popin 100%",
 })
 hl.window_rule({
     match = {
