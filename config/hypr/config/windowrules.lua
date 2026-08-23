@@ -135,10 +135,20 @@ hl.window_rule({
 })
 
 -- Glass layers --------------------------------------------------------------
--- Blur the Noctalia shell surfaces (bar, dock, panels, launcher,
--- notifications). Deliberately NOT noctalia-wallpaper. ignore_alpha skips
--- fully/mostly transparent pixels so rounded corners don't get a square
--- blur halo.
+-- ignore_alpha skips fully/mostly transparent pixels so rounded corners don't
+-- get a square blur halo.
+
+-- vicinae draws as a layer surface (namespace "vicinae"), not a window, so it
+-- takes a layer_rule rather than a window_rule.
+hl.layer_rule({
+    name  = "glass-vicinae",
+    match = { namespace = "^(vicinae)$" },
+    blur  = true,
+    ignore_alpha = 0.3,
+})
+
+-- The Noctalia shell surfaces (bar, dock, panels, launcher, notifications).
+-- Deliberately NOT noctalia-wallpaper.
 hl.layer_rule({
     name  = "glass-noctalia",
     match = { namespace = "^(noctalia-(bar|dock|launcher|notification|attached-panel|control-center|settings|osd).*)$" },
