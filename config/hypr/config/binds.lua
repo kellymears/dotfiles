@@ -138,6 +138,10 @@ hl.bind("Print", hl.dsp.exec_cmd(shot .. " screen")) -- keyboards with a real Pr
 
 -- Theming and Wallpaper
 hl.bind(mainMod .. " + SHIFT + W", hl.dsp.exec_cmd(noctCall .. "panel-toggle wallpaper"))
+-- Video wallpaper (noctalia/mpvpaper plugin). Separate panel from the static
+-- wallpaper one above -- it assigns an mpvpaper surface per output. Opens
+-- attached to its bar widget, so it lands on whichever monitor has focus.
+hl.bind(mainMod .. " + ALT + W", hl.dsp.exec_cmd(noctCall .. "panel-toggle noctalia/mpvpaper:picker"))
 
 -- Clipboard
 hl.bind(mainMod .. " + V", hl.dsp.exec_cmd(noctCall .. "panel-toggle clipboard"))
