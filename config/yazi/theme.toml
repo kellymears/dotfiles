@@ -1,0 +1,9 @@
+# Rosé Pine, to match the rest of the desktop. Installed as a yazi *flavor*
+# (a full theme package: UI colors plus a tmtheme for syntax highlighting in
+# the code preview) rather than a hand-written [style] block.
+#
+# The flavor itself is vendored into flavors/ by `ya pkg` and is gitignored;
+# package.toml is the tracked lockfile. On a new machine: `ya pkg install`.
+[flavor]
+dark  = "rose-pine"
+light = "rose-pine"

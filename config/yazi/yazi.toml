@@ -1,0 +1,46 @@
+# yazi -- file manager.
+#
+# Image previews work with no configuration here: Ghostty implements the kitty
+# graphics protocol and yazi detects it, so previews are real pixels rather
+# than chafa's block-character approximation. If a preview ever comes out as
+# coloured blocks, that detection failed -- check $TERM_PROGRAM.
+
+[mgr]
+# Three panes: parent, current, preview. Weighted toward the preview because
+# these are 4K panels and there is room for it.
+ratio          = [1, 3, 4]
+sort_by        = "natural"   # foo2 before foo10, unlike "alphabetical"
+sort_dir_first = true
+sort_sensitive = false
+linemode       = "size"
+show_hidden    = false       # toggle live with `.`
+show_symlink   = true
+scrolloff      = 6
+
+[preview]
+max_width  = 1200
+max_height = 1200
+wrap       = "yes"
+
+[opener]
+edit = [
+  # $EDITOR is nvim, but a file opened from a GUI-launched yazi has nowhere to
+  # draw a terminal editor, so block = true keeps it in yazi's own terminal.
+  { run = '${EDITOR:-nvim} "$@"', desc = "edit", block = true, for = "unix" },
+]
+
+# git.yazi -- shows git status per file in the listing. Both the file ("*") and
+# directory ("*/") patterns are registered because the fetcher runs per-entry
+# and directories carry a rolled-up status of their own.
+#
+# Keys are `url`/`run`/`group` -- not the `id`/`name` pair older guides show.
+# yazi 26 requires `group` and rejects the config outright without it.
+[[plugin.prepend_fetchers]]
+url   = "*"
+run   = "git"
+group = "git"
+
+[[plugin.prepend_fetchers]]
+url   = "*/"
+run   = "git"
+group = "git"
