@@ -83,7 +83,15 @@ hl.bind("XF86Calculator",           hl.dsp.exec_cmd(launchPrefix .. CALCULATOR))
 hl.bind("CONTROL + SHIFT + Escape", hl.dsp.exec_cmd(launchPrefix .. TERMINAL .. " -e btop"))
 hl.bind(mainMod .. " + Z",          hl.dsp.exec_cmd(noctCall .. "settings-toggle"))
 hl.bind(mainMod .. " + X",          hl.dsp.exec_cmd(noctCall .. "panel-toggle control-center"))
-hl.bind(mainMod .. " + Space",      hl.dsp.exec_cmd(noctCall .. "panel-toggle launcher"))
+-- App launcher: vicinae, not Noctalia's panel. Raycast-shaped root search
+-- with an extension store, themed rose-pine to match everything else.
+-- It runs as a user unit (systemctl --user enable --now vicinae.service),
+-- pulled up by graphical-session.target, so it is warm before the first
+-- keypress and does not need an entry in autostart.lua.
+hl.bind(mainMod .. " + Space",      hl.dsp.exec_cmd("vicinae toggle"))
+-- Noctalia's own launcher, kept on a second bind. It still owns the wallpaper
+-- and session providers, which vicinae has no equivalent for.
+hl.bind(mainMod .. " + SHIFT + Space", hl.dsp.exec_cmd(noctCall .. "panel-toggle launcher"))
 hl.bind(mainMod .. " + period",     hl.dsp.exec_cmd(noctCall .. "panel-toggle launcher /emo"))
 hl.bind(mainMod .. " + L",          hl.dsp.exec_cmd(noctCall .. "session lock"))
 hl.bind(mainMod .. " + ALT + C",    hl.dsp.exec_cmd(noctCall .. "panel-toggle session"))
