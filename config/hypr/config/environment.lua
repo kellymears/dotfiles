@@ -23,7 +23,7 @@ hl.env("MOZ_ENABLE_WAYLAND", "1")
 
 -- CachyOS ships BROWSER=firefox in ~/.config/uwsm/env (from /etc/skel).
 -- Declared here too so the tracked config is the source of truth.
-hl.env("BROWSER", "zen-browser")
+hl.env("BROWSER", "google-chrome-stable")
 
 -- Cursor: Bibata Modern Ice. BreezeX-RosePine matched the palette but is a
 -- Breeze outline arrow -- generic in a way the rest of the desktop is not.

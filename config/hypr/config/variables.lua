@@ -1,8 +1,8 @@
 -- Hyprland default apps
 
 TERMINAL     = "ghostty"
-FILE_MANAGER = "dolphin"
-BROWSER      = "zen-browser"
+FILE_MANAGER = "nautilus"
+BROWSER      = "google-chrome-stable"
 CALCULATOR   = "gnome-calculator"
 
 -- Monitors
