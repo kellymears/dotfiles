@@ -26,3 +26,7 @@ export PATH
 #
 # Personal vaults are still reachable with --account tinypixel.1password.com.
 [[ "$OSTYPE" == linux* ]] && export OP_ACCOUNT=team-carrot.1password.com
+
+# claudish: use the codex provider and silence its startup notice
+export CLAUDISH_PROVIDER=codex
+export CLAUDISH_NOTICE=0

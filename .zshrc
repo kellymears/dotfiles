@@ -129,3 +129,7 @@ export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
 if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init zsh)"; fi
+
+# Added by flyctl installer
+export FLYCTL_INSTALL="/home/kelly/.fly"
+export PATH="$FLYCTL_INSTALL/bin:$PATH"
