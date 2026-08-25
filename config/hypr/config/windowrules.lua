@@ -65,6 +65,17 @@ hl.window_rule({
 })
 
 -- Apps
+-- Keep agent-launched browser sessions out of the interactive workspaces.
+-- Chrome for Testing shares chromium-browser's class, so identify it by the
+-- product name in its initial title instead of catching regular Chromium too.
+hl.window_rule({
+    match = {
+        class         = "^(chromium-browser)$",
+        initial_title = "^(.*Google Chrome for Testing)$",
+    },
+    workspace = "name:Agent Processes silent",
+})
+
 hl.window_rule({ match = { class = "^(.*\\.exe)$", float = true }, monitor = PRIMARY_MONITOR, center = true, fullscreen_state = 0 })
 hl.window_rule({ match = { class = "^(.*[Ll]auncher.*)$" }, float = true, monitor = PRIMARY_MONITOR })
 hl.window_rule({ match = { class = "^(vesktop|discord)$" }, monitor = PRIMARY_MONITOR })
@@ -100,19 +111,6 @@ hl.window_rule({
     -- while the separate fade animation still runs -- i.e. it just fades in.
     animation = "popin 100%",
 })
-hl.window_rule({
-    match = {
-        class = "^(org\\.kde\\.dolphin)$",
-        title = "negative:^(Moving.*|Create New.*|Extract.*|Compress.*|Copying.*|Progress.*|Configure.*|Properties.*|Choose\\sApplication.*)$",
-    },
-    float = true,
-    size = { "max(monitor_w, monitor_h)*0.50", "min(monitor_w, monitor_h)*0.55" },
-    move = {
-        "max(20, min(cursor_x - (window_w*0.50), monitor_w - window_w + 20))", -- X axis clamping
-        "max(20, min(cursor_y - 50, monitor_h - window_h + 20))" -- Y axis clamping
-    },
-})
-
 -- Opacity Overrides
 local terminals = "^(kitty|ghostty|[Kk]onsole|Alacritty|gnome-terminal|xfce[0-9]?-terminal)$"
 
