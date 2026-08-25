@@ -65,6 +65,11 @@ hl.window_rule({
 })
 
 -- Apps
+-- Human browsers live on the third display's second workspace (absolute 8;
+-- see workspaces.lua). Non-silent so opening a link still pulls focus there.
+-- Chrome for Testing is class chromium-browser, so it is not caught here.
+hl.window_rule({ match = { class = "^(google-chrome|zen)$" }, workspace = "8" })
+
 -- Keep agent-launched browser sessions out of the interactive workspaces.
 -- Chrome for Testing shares chromium-browser's class, so identify it by the
 -- product name in its initial title instead of catching regular Chromium too.
