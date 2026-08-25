@@ -155,12 +155,19 @@ hl.monitor({
 -- If the TV ever fails to come up after touching this block, bitdepth is the
 -- first thing to drop: 10bpc changes the 4th-head modeset that tv-kick.sh is
 -- tuned around, and that failure looks like a dead cable (see above).
+--
+-- 2026-08-20: that happened. On Hyprland 0.56.2 the TV's 10bpc swapchain
+-- asks GBM for XR30 and the allocation is refused ("format XR30 isn't
+-- supported by primary backend"), so the head never lights even though
+-- hyprctl reports it enabled. The three DP panels are unaffected (they get
+-- XBGR2101010). Held at 8bpc until a driver/Hyprland update makes XR30
+-- allocatable again; expect banding on dark scenes until then.
 hl.monitor({
     output    = MONITOR_TV,
     mode      = "3840x2160@60",
     position  = "7680x0",
     scale     = "2",
-    bitdepth  = 10,
+    bitdepth  = 8,
     sdrbrightness = 3.0,
 })
 

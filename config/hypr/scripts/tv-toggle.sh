@@ -47,6 +47,18 @@ else
     if [[ "$(cat "/sys/class/drm/card1-$TV/enabled" 2>/dev/null)" == enabled ]]; then
         notify "on -- 3840x2160@60"
     else
-        notify "failed to enable, see hyprland log"
+        # A failed enable (seen 2026-08-23: FRL link training flake) leaves
+        # Hyprland believing the head is up while /sys says dark, and that
+        # stale state makes the next light_tv commit merge into a no-op. Flush
+        # it with an explicit disabled=true, then kick once more.
+        notify "enable failed -- flushing stale state and retrying"
+        hyprctl eval "hl.monitor({output=\"$TV\", disabled=true})" >/dev/null
+        sleep 2
+        TV_KICK_DELAY=0 "$HERE/tv-kick.sh"
+        if [[ "$(cat "/sys/class/drm/card1-$TV/enabled" 2>/dev/null)" == enabled ]]; then
+            notify "on -- 3840x2160@60 (after retry)"
+        else
+            notify "failed to enable after retry, see hyprland log"
+        fi
     fi
 fi
