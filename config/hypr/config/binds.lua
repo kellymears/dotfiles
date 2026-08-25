@@ -133,6 +133,7 @@ local rec  = "~/.config/hypr/scripts/screenrec.sh"
 
 hl.bind(mainMod .. " + SHIFT + S", hl.dsp.exec_cmd(shot .. " screen")) -- S: focused Screen
 hl.bind(mainMod .. " + SHIFT + A", hl.dsp.exec_cmd(shot .. " window")) -- A: Active window
+hl.bind(mainMod .. " + SHIFT + D", hl.dsp.exec_cmd(shot .. " region")) -- D: Drag region
 hl.bind(mainMod .. " + SHIFT + R", hl.dsp.exec_cmd(rec  .. " screen")) -- R: Record screen
 hl.bind("Print", hl.dsp.exec_cmd(shot .. " screen")) -- keyboards with a real PrtSc
 

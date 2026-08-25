@@ -32,14 +32,33 @@ case "$mode" in
 esac
 
 tmp="$(mktemp --suffix=.png)"
-trap 'rm -f "$tmp"' EXIT
+freeze_pid=""
+cleanup() {
+    if [[ -n "$freeze_pid" ]]; then
+        kill "$freeze_pid" 2>/dev/null || true
+    fi
+    rm -f "$tmp"
+}
+trap cleanup EXIT
 
-# --raw dumps PNG to stdout with no save/notification of its own; -z freezes
-# the screen so a moving window doesn't smear the selection. hyprshot's exit
-# code is unreliable in --raw mode (it can return 1 after a perfectly good
-# capture), so gauge success by whether any image data actually landed: a
-# cancelled region selection yields an empty file, a real grab does not.
-hyprshot "${hs[@]}" --raw -s -z > "$tmp" 2>/dev/null || true
+# Region capture uses slurp and grim directly; hyprshot's background watcher can
+# race the interactive selection. Other modes keep hyprshot's frozen raw grab.
+# Gauge success by image data because hyprshot's raw-mode exit code is unreliable.
+if [[ "$mode" == region || "$mode" == area ]]; then
+    # Freeze before slurp takes focus. Attached shell panels may close while
+    # selecting, but grim still samples this frozen compositor frame, so the
+    # panel remains present in the resulting screenshot.
+    hyprpicker -r -z >/dev/null 2>&1 &
+    freeze_pid=$!
+    sleep 0.2
+    geometry="$(slurp -d)" || exit 0
+    [[ -n "$geometry" ]] && grim -g "$geometry" "$tmp" 2>/dev/null || true
+    kill "$freeze_pid" 2>/dev/null || true
+    wait "$freeze_pid" 2>/dev/null || true
+    freeze_pid=""
+else
+    hyprshot "${hs[@]}" --raw -s -z > "$tmp" 2>/dev/null || true
+fi
 if [ ! -s "$tmp" ]; then
     # Selection cancelled or grab failed -- say so instead of vanishing.
     # (slurp aborts the whole capture if any KEY is pressed mid-selection;
