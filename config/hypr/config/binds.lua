@@ -180,10 +180,12 @@ hl.bind(mainMod .. " + H", hl.dsp.exec_cmd("~/.config/hypr/scripts/center-stage.
 hl.bind(mainMod .. " + SHIFT + H", hl.dsp.exec_cmd("~/.config/hypr/scripts/center-stage.sh --full"))
 
 -- Focus on workspace number
--- Absolute
-for i = 1, NUM_WPM do
-    local key = i % 10
-    hl.bind(mainMod .. " + ALT + " .. key, hl.dsp.focus({ workspace = i }))
+-- Absolute: SUPER + ALT + 1..9 across all three panels (1-3, 4-6, 7-8 plus
+-- the named "Agent Processes" slot in 9's place -- see workspaces.lua).
+-- Previously this loop only ran to NUM_WPM, so 4..9 were never bound.
+local absolute = { "1", "2", "3", "4", "5", "6", "7", "8", "name:Agent Processes" }
+for i, ws in ipairs(absolute) do
+    hl.bind(mainMod .. " + ALT + " .. i, hl.dsp.focus({ workspace = ws }))
 end
 -- Relative
 for i = 1, NUM_WPM do
