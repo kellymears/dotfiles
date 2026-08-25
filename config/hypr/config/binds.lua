@@ -144,6 +144,11 @@ hl.bind(mainMod .. " + SHIFT + W", hl.dsp.exec_cmd(noctCall .. "panel-toggle wal
 -- attached to its bar widget, so it lands on whichever monitor has focus.
 hl.bind(mainMod .. " + ALT + W", hl.dsp.exec_cmd(noctCall .. "panel-toggle noctalia/mpvpaper:picker"))
 
+-- Browsers live on workspace 7 (display 3). SUPER+ALT+M throws that whole
+-- workspace onto the middle panel for a call (webcam sits atop DP-2) and
+-- throws it back on the next press.
+hl.bind(mainMod .. " + ALT + M", hl.dsp.exec_cmd("~/.config/hypr/scripts/browser-monitor.sh"))
+
 -- Clipboard
 hl.bind(mainMod .. " + V", hl.dsp.exec_cmd(noctCall .. "panel-toggle clipboard"))
 
