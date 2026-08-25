@@ -31,7 +31,7 @@
 	required = true
 
 [gpg]
-	program = /opt/homebrew/bin/gpg
+	format = ssh
 
 [init]
 	defaultBranch = main
@@ -42,10 +42,14 @@
 [user]
 	name = Kelly Mears
 	email = developers@tinypixel.dev
-	signingkey = 3DEF24B5
+	signingkey = /home/kelly/.ssh/id_ed25519.pub
 [credential "https://github.com"]
 	helper = 
 	helper = !gh auth git-credential
 [credential "https://gist.github.com"]
 	helper = 
 	helper = !gh auth git-credential
+[tag]
+	gpgsign = true
+[gpg "ssh"]
+	allowedSignersFile = /home/kelly/.config/git/allowed_signers
