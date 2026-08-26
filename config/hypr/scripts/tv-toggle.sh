@@ -40,12 +40,14 @@ if [[ "$(cat "/sys/class/drm/card1-$TV/enabled" 2>/dev/null)" == enabled ]]; the
     hyprctl eval "hl.monitor({output=\"$TV\", disabled=true})" >/dev/null
     sleep 1
     notify "off -- windows moved back"
+    "$HERE/tv-audio.sh"
 else
     # tv-kick does the real work and is a no-op if the TV is already lit, so
     # a double-press cannot wedge anything.
     TV_KICK_DELAY=0 "$HERE/tv-kick.sh"
     if [[ "$(cat "/sys/class/drm/card1-$TV/enabled" 2>/dev/null)" == enabled ]]; then
         notify "on -- 3840x2160@60"
+        "$HERE/tv-audio.sh" --prefer-tv
     else
         # A failed enable (seen 2026-08-23: FRL link training flake) leaves
         # Hyprland believing the head is up while /sys says dark, and that
@@ -57,6 +59,7 @@ else
         TV_KICK_DELAY=0 "$HERE/tv-kick.sh"
         if [[ "$(cat "/sys/class/drm/card1-$TV/enabled" 2>/dev/null)" == enabled ]]; then
             notify "on -- 3840x2160@60 (after retry)"
+            "$HERE/tv-audio.sh" --prefer-tv
         else
             notify "failed to enable after retry, see hyprland log"
         fi

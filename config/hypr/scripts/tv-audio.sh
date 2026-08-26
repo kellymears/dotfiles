@@ -4,6 +4,11 @@
 #
 #   tv-audio.sh            do the switch (hooked to monitor.added /
 #                          monitor.removed / hyprland.start in monitors.lua)
+#   tv-audio.sh --prefer-tv
+#                          same, but skip tier 1 (Bluetooth). tv-toggle.sh
+#                          uses this: pressing the TV key means the TV, and
+#                          AirPods stay "connected" for ~30s after being
+#                          cased, which otherwise wins the chain.
 #   tv-audio.sh --status   print the display-to-PCM map and the current sink
 #
 # WHY THE TV IS NOT SIMPLY PICKABLE
@@ -310,6 +315,10 @@ fi
 # Bluetooth headphones. If they are connected they are on your head, and that
 # beats every box in the room.
 bt=$(bt_sink)
+if [[ ${1:-} == --prefer-tv && -n $bt ]]; then
+    log "skipping bluetooth ($bt): --prefer-tv"
+    bt=""
+fi
 if [[ -n $bt ]]; then
     rest_card
     switch_to "$bt" && { log "audio -> $bt (bluetooth)"; exit 0; }
@@ -334,6 +343,8 @@ if hyprctl monitors | grep -q "^Monitor $TV_HEAD ("; then
         log "$TV_HEAD is up but no output reports an HDMI display -- falling through"
         log "$(printf '%s' "$map" | tr '\t' ' ')"
     fi
+else
+    log "$TV_HEAD not in hyprctl monitors -- skipping TV tier"
 fi
 
 # ------------------------------------------------------------------- tier 3
