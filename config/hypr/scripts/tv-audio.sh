@@ -112,6 +112,14 @@ CENTER_PORT_DEFAULT="0x800"
 
 log() { printf '[tv-audio] %s\n' "$*" >&2; }
 
+# audio-chain-watch runs as a systemd user service with no Hyprland env, so
+# hyprctl there fails and the TV tier silently looks "down". Find the running
+# instance ourselves: newest socket dir under the runtime dir.
+if [[ -z ${HYPRLAND_INSTANCE_SIGNATURE:-} ]]; then
+    sig=$(ls -t "${XDG_RUNTIME_DIR:-/run/user/$(id -u)}/hypr" 2>/dev/null | head -1)
+    [[ -n $sig ]] && export HYPRLAND_INSTANCE_SIGNATURE="$sig"
+fi
+
 command -v pactl >/dev/null 2>&1 || { log "no pactl, nothing to do"; exit 0; }
 pactl info >/dev/null 2>&1 || { log "no pipewire/pulse server, nothing to do"; exit 0; }
 
