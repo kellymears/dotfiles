@@ -40,13 +40,21 @@ hl.bind(mainMod .. " + SHIFT + 3",                    hl.dsp.window.move({ monit
 hl.bind(mainMod .. " + SHIFT + 4",                    hl.dsp.window.move({ monitor = MONITOR_TV }))
 hl.bind(mainMod .. " + SHIFT + mouse_up",             hl.dsp.window.move({ monitor   = "-1" }))
 hl.bind(mainMod .. " + SHIFT + mouse_down",           hl.dsp.window.move({ monitor   = "+1" }))
-hl.bind(mainMod .. " + CONTROL + SHIFT + Right",      hl.dsp.window.move({ workspace = "m+1" }))
-hl.bind(mainMod .. " + CONTROL + SHIFT + Left",       hl.dsp.window.move({ workspace = "m-1" }))
+-- Arrows step through workspaces GLOBALLY (+1/-1: 3 -> 4 crosses onto the
+-- next display); the mouse wheel below stays monitor-local (m+1/m-1 wraps
+-- within the focused panel). The `m` prefix is what makes the difference.
+hl.bind(mainMod .. " + CONTROL + SHIFT + Right",      hl.dsp.window.move({ workspace = "+1" }))
+hl.bind(mainMod .. " + CONTROL + SHIFT + Left",       hl.dsp.window.move({ workspace = "-1" }))
 hl.bind(mainMod .. " + CONTROL + SHIFT + mouse_up",   hl.dsp.window.move({ workspace = "m-1" }))
 hl.bind(mainMod .. " + CONTROL + SHIFT + mouse_down", hl.dsp.window.move({ workspace = "m+1" }))
 for i = 1, NUM_WPM do
     local key = i % 10
     hl.bind(mainMod .. " + SHIFT + CONTROL + " .. key, hl.dsp.window.move({ workspace = "m~" .. i }))
+end
+-- Absolute: throw the focused window to workspace 1..9 on any display
+-- (same table as the SUPER + ALT focus binds further down).
+for i, ws in ipairs({ "1", "2", "3", "4", "5", "6", "7", "8", "name:Agent Processes" }) do
+    hl.bind(mainMod .. " + SHIFT + ALT + " .. i, hl.dsp.window.move({ workspace = ws }))
 end
 
 -- Move & Resize with mouse
