@@ -42,6 +42,8 @@
 !bat/**
 !lazygit/
 !lazygit/**
+!paru/
+!paru/**
 
 # yazi: only our own config and the package lockfile. flavors/ and plugins/ are
 # vendored by `ya pkg` and stay untracked -- `ya pkg install` restores them.
