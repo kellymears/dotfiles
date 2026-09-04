@@ -180,6 +180,32 @@ hl.bind(mainMod .. " + 4", hl.dsp.focus({ monitor = MONITOR_TV }))
 -- workaround documented in monitors.lua.
 hl.bind(mainMod .. " + SHIFT + T", hl.dsp.exec_cmd("~/.config/hypr/scripts/tv-toggle.sh"))
 
+-- Panel-only display kick: recovers a panel stuck in a bad post-wake mode
+-- (wrong resolution/refresh) without touching the TV head or caffeine, unlike
+-- SUPER+SHIFT+T above. See scripts/panel-kick.sh.
+hl.bind(mainMod .. " + T", hl.dsp.exec_cmd("~/.config/hypr/scripts/panel-kick.sh"))
+
+-- Per-output enable/disable: SUPER+O, then 1-4 for that display (matching
+-- the monitor numbers used by the plain SUPER+1..4 focus binds above). For
+-- KVM-switched setups -- a Steam Deck or MacBook driving one panel directly
+-- -- without losing the workspaces already on the other panels. Disabling
+-- migrates windows off it, same as SUPER+SHIFT+T does for the TV; re-showing
+-- it always re-kicks so a flaky modeset doesn't leave it at the wrong
+-- resolution. One shot per press -- each digit exits back to the default
+-- submap rather than staying in monitor-toggle mode. See
+-- scripts/monitor-toggle.sh.
+local monitorToggle = "~/.config/hypr/scripts/monitor-toggle.sh"
+hl.define_submap("monitor_toggle", function()
+    for i = 1, 4 do
+        hl.bind(tostring(i), function()
+            hl.dispatch(hl.dsp.exec_cmd(monitorToggle .. " " .. i))
+            hl.dispatch(hl.dsp.submap("reset"))
+        end)
+    end
+    hl.bind("Escape", hl.dsp.submap("reset"))
+end)
+hl.bind(mainMod .. " + O", hl.dsp.submap("monitor_toggle"))
+
 -- Center stage: float the FOCUSED window onto the center panel, pinned, so
 -- you are looking at the webcam while on a call. Second press puts it back on
 -- its old workspace with its old tiled/floating state. Works on any window --
