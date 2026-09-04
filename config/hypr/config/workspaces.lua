@@ -27,6 +27,9 @@ hl.workspace_rule({ workspace = "6", monitor = MONITOR2, default = true, persist
 hl.workspace_rule({ workspace = "7", monitor = MONITOR3, default = true, persistent = true })
 hl.workspace_rule({ workspace = "8", monitor = MONITOR3, default = true, persistent = true })
 hl.workspace_rule({ workspace = "name:Agent Processes", monitor = MONITOR3, default = true, persistent = true })
+-- Rice showcase (Noctalia desktop widgets). SUPER + ALT + 0 focuses it;
+-- persistent so it survives being empty.
+hl.workspace_rule({ workspace = "name:showcase", monitor = MONITOR1, default = true, persistent = true })
 
 -- Three per monitor, which is what NUM_WPM = 3 in variables.lua already
 -- assumes: SUPER + CONTROL + 1..3 (focus) and SUPER + SHIFT + CONTROL + 1..3

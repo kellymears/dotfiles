@@ -56,6 +56,7 @@ end
 for i, ws in ipairs({ "1", "2", "3", "4", "5", "6", "7", "8", "name:Agent Processes" }) do
     hl.bind(mainMod .. " + SHIFT + ALT + " .. i, hl.dsp.window.move({ workspace = ws }))
 end
+hl.bind(mainMod .. " + SHIFT + ALT + 0", hl.dsp.window.move({ workspace = "name:showcase" }))
 
 -- Move & Resize with mouse
 hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag())
@@ -221,6 +222,8 @@ local absolute = { "1", "2", "3", "4", "5", "6", "7", "8", "name:Agent Processes
 for i, ws in ipairs(absolute) do
     hl.bind(mainMod .. " + ALT + " .. i, hl.dsp.focus({ workspace = ws }))
 end
+-- 0 = the showcase workspace on display 1 (workspaces.lua).
+hl.bind(mainMod .. " + ALT + 0", hl.dsp.focus({ workspace = "name:showcase" }))
 -- Relative
 for i = 1, NUM_WPM do
     local key = i % 10
