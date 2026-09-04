@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Force the three DP panels through a fresh drop/restore cycle to recover
 # from a bad post-wake modeset (wrong resolution or refresh rate), without
-# touching the TV head or its caffeine idle-inhibit hook. Bound to SUPER+T.
+# touching the TV head or its caffeine idle-inhibit hook. Bound to SUPER+0, 0.
 #
 # This is the panel half of tv-kick.sh's cycle() with the TV branch removed
 # -- see tv-kick.sh's header for why the drop-then-restore dance is needed

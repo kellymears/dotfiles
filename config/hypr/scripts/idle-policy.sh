@@ -12,7 +12,7 @@
 #
 # The TV being lit is a good enough proxy for "someone is sitting in front of
 # something that does not generate input", and it is already an explicit,
-# deliberate act (SUPER + SHIFT + T -> tv-toggle.sh). So: TV up, idle is
+# deliberate act (SUPER + 0, 4 -> tv-toggle.sh). So: TV up, idle is
 # inhibited entirely; TV down, the normal timeouts apply.
 #
 # The cost is that the OLEDs also stay lit while the TV is on. Accepted: the

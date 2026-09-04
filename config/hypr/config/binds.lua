@@ -178,25 +178,30 @@ hl.bind(mainMod .. " + 4", hl.dsp.focus({ monitor = MONITOR_TV }))
 -- -- it keeps HPD, EDID, and its network services alive when the screen is
 -- off, so nothing on this end ever notices. See scripts/tv-toggle.sh.
 -- Off migrates windows back to the panels; on runs the drop/enable/restore
--- workaround documented in monitors.lua.
-hl.bind(mainMod .. " + SHIFT + T", hl.dsp.exec_cmd("~/.config/hypr/scripts/tv-toggle.sh"))
-
--- Panel-only display kick: recovers a panel stuck in a bad post-wake mode
--- (wrong resolution/refresh) without touching the TV head or caffeine, unlike
--- SUPER+SHIFT+T above. See scripts/panel-kick.sh.
-hl.bind(mainMod .. " + T", hl.dsp.exec_cmd("~/.config/hypr/scripts/panel-kick.sh"))
-
--- Per-output enable/disable: SUPER+O, then 1-4 for that display (matching
--- the monitor numbers used by the plain SUPER+1..4 focus binds above). For
--- KVM-switched setups -- a Steam Deck or MacBook driving one panel directly
--- -- without losing the workspaces already on the other panels. Disabling
--- migrates windows off it, same as SUPER+SHIFT+T does for the TV; re-showing
--- it always re-kicks so a flaky modeset doesn't leave it at the wrong
--- resolution. One shot per press -- each digit exits back to the default
--- submap rather than staying in monitor-toggle mode. See
--- scripts/monitor-toggle.sh.
+-- workaround documented in monitors.lua. Reached only via the submap below
+-- (SUPER+0, 4) -- monitor-toggle.sh delegates index 4 straight to this
+-- script, so there is one source of truth for TV enable/disable rather than
+-- a second bind that happens to do the same thing.
+--
+-- Display submap: SUPER+0, then a digit.
+--   0 -- panel-kick.sh: recover a panel stuck in a bad post-wake mode
+--        (wrong resolution/refresh) without touching the TV head or caffeine.
+--   1/2/3 -- toggle that DP panel on/off via monitor-toggle.sh. For
+--        KVM-switched setups -- a Steam Deck or MacBook driving one panel
+--        directly -- without losing the workspaces already on the other
+--        panels. Disabling migrates windows off it; re-showing it always
+--        re-kicks so a flaky modeset doesn't leave it at the wrong
+--        resolution.
+--   4 -- toggle the TV via tv-toggle.sh (see above).
+-- One shot per press -- each digit exits back to the default submap rather
+-- than staying in monitor-toggle mode. See scripts/monitor-toggle.sh.
 local monitorToggle = "~/.config/hypr/scripts/monitor-toggle.sh"
+local panelKick = "~/.config/hypr/scripts/panel-kick.sh"
 hl.define_submap("monitor_toggle", function()
+    hl.bind("0", function()
+        hl.dispatch(hl.dsp.exec_cmd(panelKick))
+        hl.dispatch(hl.dsp.submap("reset"))
+    end)
     for i = 1, 4 do
         hl.bind(tostring(i), function()
             hl.dispatch(hl.dsp.exec_cmd(monitorToggle .. " " .. i))
@@ -205,7 +210,7 @@ hl.define_submap("monitor_toggle", function()
     end
     hl.bind("Escape", hl.dsp.submap("reset"))
 end)
-hl.bind(mainMod .. " + O", hl.dsp.submap("monitor_toggle"))
+hl.bind(mainMod .. " + 0", hl.dsp.submap("monitor_toggle"))
 
 -- Center stage: float the FOCUSED window onto the center panel, pinned, so
 -- you are looking at the webcam while on a call. Second press puts it back on

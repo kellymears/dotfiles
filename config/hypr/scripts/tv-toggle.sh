@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
-# Toggle the living-room TV on HDMI-A-1. Bound to SUPER + SHIFT + T.
+# Toggle the living-room TV on HDMI-A-1. Bound to SUPER + 0, 4 (see
+# binds.lua's "monitor_toggle" submap; monitor-toggle.sh delegates index 4
+# straight here).
 #
 # WHY A KEYBIND AND NOT AUTOMATIC
 #

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Enable/disable one display by index (1-4), independent of the others.
-# Bound to SUPER+O then 1/2/3/4 (see binds.lua's "monitor_kick" submap).
+# Bound to SUPER+0 then 1/2/3/4 (see binds.lua's "monitor_toggle" submap).
 #
 # WHY: a KVM-switched panel (Steam Deck on display 3, a MacBook on display 1)
 # needs the GPU's own output torn down while another source drives the
