@@ -212,6 +212,22 @@ hl.define_submap("monitor_toggle", function()
 end)
 hl.bind(mainMod .. " + 0", hl.dsp.submap("monitor_toggle"))
 
+-- Audio submap: SUPER+9, then 1 (Edifier), 2 (AirPods Pro), or 3 (LG TV).
+-- Manual on purpose -- see audio-switch.sh's header for why the old
+-- auto-follow-the-TV chain was retired. Toggling the TV on (SUPER+0, 4) does
+-- NOT also route audio anymore; that's SUPER+9, 3.
+local audioSwitch = "~/.config/hypr/scripts/audio-switch.sh"
+hl.define_submap("audio_switch", function()
+    for i = 1, 3 do
+        hl.bind(tostring(i), function()
+            hl.dispatch(hl.dsp.exec_cmd(audioSwitch .. " " .. i))
+            hl.dispatch(hl.dsp.submap("reset"))
+        end)
+    end
+    hl.bind("Escape", hl.dsp.submap("reset"))
+end)
+hl.bind(mainMod .. " + 9", hl.dsp.submap("audio_switch"))
+
 -- Center stage: float the FOCUSED window onto the center panel, pinned, so
 -- you are looking at the webcam while on a call. Second press puts it back on
 -- its old workspace with its old tiled/floating state. Works on any window --

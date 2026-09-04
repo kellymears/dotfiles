@@ -187,30 +187,12 @@ local function boot_restore()
     hl.exec_cmd("~/.config/hypr/scripts/tv-kick.sh --boot")
 end
 
--- Audio follows the TV head. The NVIDIA HDA card exposes its four digital
--- outputs as mutually exclusive PROFILES, so the TV's sink does not exist at
--- all unless the card is on the TV's profile -- and WirePlumber cannot pick
--- that for itself, because the driver reports every HDMI/DP port as
--- `available` whether or not anything is plugged in. Hyprland knows which head
--- is really up, so it drives the profile.
---
--- WHICH profile is the TV is not fixed and must not be hardcoded: PCM slots
--- are assigned to codec pins dynamically, so it moves. The script reads the
--- ELD off each output and picks the one whose display says HDMI --
--- `tv-audio.sh --status` prints the map. Details in the script.
---
--- hyprland.start is included for the TV-absent boot: WirePlumber restores the
--- HDMI profile from its own state and would otherwise leave the default sink
--- pointing at a TV that is not there.
-local function tv_audio()
-    hl.exec_cmd("~/.config/hypr/scripts/tv-audio.sh")
-end
-
+-- Audio no longer follows the TV head automatically -- it's picked by hand
+-- with SUPER+9 (see audio-switch.sh). Used to be hooked here the same way as
+-- kick_tv/boot_restore; see git history if the automatic chain is ever
+-- wanted back.
 hl.on("monitor.added", kick_tv)
 hl.on("hyprland.start", boot_restore)
-hl.on("monitor.added", tv_audio)
-hl.on("monitor.removed", tv_audio)
-hl.on("hyprland.start", tv_audio)
 
 -- Fallback for anything else not listed above.
 -- At 2, so it does not track the 1.5 on the three panels above. Fine for

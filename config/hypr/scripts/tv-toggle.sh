@@ -20,6 +20,10 @@
 #
 # So: press the key. Off tears the head down and pulls windows back to the
 # main panels; on runs the drop/enable/restore dance in tv-kick.sh.
+#
+# Does NOT touch audio -- that used to auto-follow the TV, but audio is now
+# picked manually with SUPER+9 (see audio-switch.sh). Route it with
+# SUPER+9, 3 after this.
 
 set -uo pipefail
 
@@ -42,14 +46,12 @@ if [[ "$(cat "/sys/class/drm/card1-$TV/enabled" 2>/dev/null)" == enabled ]]; the
     hyprctl eval "hl.monitor({output=\"$TV\", disabled=true})" >/dev/null
     sleep 1
     notify "off -- windows moved back"
-    "$HERE/tv-audio.sh"
 else
     # tv-kick does the real work and is a no-op if the TV is already lit, so
     # a double-press cannot wedge anything.
     TV_KICK_DELAY=0 "$HERE/tv-kick.sh"
     if [[ "$(cat "/sys/class/drm/card1-$TV/enabled" 2>/dev/null)" == enabled ]]; then
         notify "on -- 3840x2160@60"
-        "$HERE/tv-audio.sh" --prefer-tv
     else
         # A failed enable (seen 2026-08-23: FRL link training flake) leaves
         # Hyprland believing the head is up while /sys says dark, and that
@@ -61,7 +63,6 @@ else
         TV_KICK_DELAY=0 "$HERE/tv-kick.sh"
         if [[ "$(cat "/sys/class/drm/card1-$TV/enabled" 2>/dev/null)" == enabled ]]; then
             notify "on -- 3840x2160@60 (after retry)"
-            "$HERE/tv-audio.sh" --prefer-tv
         else
             notify "failed to enable after retry, see hyprland log"
         fi
