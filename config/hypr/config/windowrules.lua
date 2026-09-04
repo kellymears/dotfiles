@@ -40,6 +40,10 @@ hl.window_rule({ match = { class = gamingApps }, workspace = gamingWorkspace })
 -- Super+F inside gamescope to toggle fullscreen at runtime.
 hl.window_rule({ match = { class = "^(steam)$", title = "^(Friends List)$" }, float = true })
 hl.window_rule({ match = { class = "^(steam)$", title = "^(Launching\\.{3})$" }, float = true, center = true, workspace = gamingWorkspace })
+-- The main Steam client window itself (library/big picture), not just the
+-- games it launches. Excludes the two special windows above so Friends List
+-- doesn't get dragged onto the gaming workspace along with it.
+hl.window_rule({ match = { class = "^(steam)$", title = "negative:^(Friends List|Launching\\.{3})$" }, workspace = gamingWorkspace })
 hl.window_rule({
     match = {
         class         = gamingApps,
