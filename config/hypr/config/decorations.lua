@@ -54,27 +54,42 @@ hl.config({
         inactive_opacity = 0.90,
         fullscreen_opacity = 1,
         blur = {
-            size = 5,
-            passes = 4,
+            -- Wider and softer, fewer passes: 8/3 is a bigger kernel than
+            -- the old 5/4 for less GPU work, and the softer falloff is what
+            -- makes glass read as depth instead of smear.
+            size = 8,
+            passes = 3,
             -- Frosted-glass tuning. ignore_opacity keeps blur at full
             -- strength behind translucent windows instead of scaling it
             -- with window opacity -- without it the wallpaper bleeds
             -- through sharp.
             ignore_opacity = true,
-            vibrancy = 0.4,
-            vibrancy_darkness = 0.2,
-            noise = 0.015,
-            contrast = 0.9,
+            -- xray: blur samples the wallpaper, not the windows underneath.
+            -- Stacked translucent windows stop compounding into mud, every
+            -- pane gets the same clean plate, and it is cheaper (no
+            -- per-window re-blur).
+            xray = true,
+            -- Higher vibrancy pulls wallpaper saturation through the ink
+            -- surfaces; without it the near-black tint reads as grey glass.
+            vibrancy = 0.55,
+            vibrancy_darkness = 0.25,
+            noise = 0.02,
+            contrast = 0.85,
             brightness = 1.0,
             popups = true,
             popups_ignorealpha = 0.2,
         },
         shadow = {
             enabled = true,
-            range = 24,
-            render_power = 3,
+            -- Floating-card shadow: long, soft, dropped slightly downward.
+            range = 40,
+            render_power = 4,
+            offset = { 0, 6 },
             color = GLASSDARK,
             color_inactive = "rgba(0b0a1433)",
         },
+        -- Corner vignette (no chromatic aberration: it blurs text at 4K). One
+        -- fullscreen pass per frame; drop this first if GPU headroom matters.
+        screen_shader = os.getenv("HOME") .. "/.config/hypr/shaders/glass.frag",
     },
 })

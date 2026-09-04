@@ -119,7 +119,10 @@ hl.window_rule({
 -- Opacity Overrides
 local terminals = "^(kitty|ghostty|[Kk]onsole|Alacritty|gnome-terminal|xfce[0-9]?-terminal)$"
 
-hl.window_rule({ match = { class = "^(firefox|zen)$" }, opacity = "1.0 override" })
+-- Browsers: near-opaque, not opaque. Page content stays legible at 0.96
+-- while the toolbar/tab strip picks up the xray glass plate like everything
+-- else. Fullscreen (video) is still 1.0 via fullscreen_opacity.
+hl.window_rule({ match = { class = "^(firefox|zen|google-chrome|chromium-browser)$" }, opacity = "0.96 override 0.94 override 1.0 override" })
 hl.window_rule({ match = { class = terminals }, opacity = "1.0 override" }) -- Override opacity in favor of terminal settings for opacity. If your terminal doesn't support transparency, you can remove this rule.
 hl.window_rule({ match = { class = "^(mpv|org.kde.haruna|.*plex.*|org\\.kde\\.gwenview|.*vlc.*)$" }, opacity = "1.0 override" })
 
@@ -173,6 +176,16 @@ hl.window_rule({
 hl.layer_rule({
     name  = "glass-noctalia",
     match = { namespace = "^(noctalia-(bar|dock|launcher|notification|attached-panel|control-center|settings|osd).*)$" },
+    blur  = true,
+    ignore_alpha = 0.3,
+})
+
+-- Everything else that is a layer surface (tooltips, satty, GTK layer-shell
+-- popovers, any future bar) gets the same glass. Wallpaper layers are
+-- excluded: blurring the wallpaper itself is a fullscreen pass for nothing.
+hl.layer_rule({
+    name  = "glass-all",
+    match = { namespace = "^(?!.*(wallpaper|mpvpaper|hyprpaper|swww|background)).*$" },
     blur  = true,
     ignore_alpha = 0.3,
 })
