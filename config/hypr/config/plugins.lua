@@ -7,7 +7,7 @@
 -- not take the whole config down with it.
 --
 -- Currently enabled: hymission (bound in binds.lua), hyprfocus,
--- dynamic-cursors.
+-- dynamic-cursors, hyprwinwrap (gen3vra fork).
 --
 -- Deliberately NOT enabled: hyprbars. Title bars are dead space on a setup
 -- where everything is tiled; the window's position already identifies it.
@@ -67,3 +67,40 @@ if hl.plugin and hl.plugin.dynamic_cursors then
         },
     })
 end
+
+------------------------------------------------------------------------------
+-- hyprfocus -- hyprwm/hyprland-plugins
+--
+-- Focus flash, not shrink. Shrink looks like a game HUD; a brief dip to 0.9
+-- opacity is enough to say "here" across three panels.
+------------------------------------------------------------------------------
+-- hyprfocus registers no Lua table (hl.plugin.hyprfocus is nil even when
+-- loaded), so the guard is a pcall: an unloaded plugin rejects the keys and
+-- the error is swallowed instead of taking the config down.
+pcall(hl.config, {
+        plugin = {
+            hyprfocus = {
+                enable = true,
+                -- "flash" dips to fade_opacity and back; the alternatives
+                -- (shrink/slide/bounce) are too much on every focus change.
+                keyboard_focus_animation = "flash",
+                mouse_focus_animation = "flash",
+                fade_opacity = 0.9,
+                animate_floating = true,
+                only_on_monitor_change = false,
+            },
+        },
+    })
+
+-- hyprtrails: NOT installed. Upstream hyprwm/hyprland-plugins dropped it
+-- (the repo now ships only borders-plus-plus, csgo-vulkan-fix, hyprbars,
+-- hyprfocus) and no fork carries a pin for 0.56.x. Revisit if one appears.
+
+------------------------------------------------------------------------------
+-- hyprwinwrap -- hyprwm/hyprland-plugins
+--
+-- Turns any window whose class matches into the wallpaper (a WebGL shader in
+-- a browser, cava, a terminal screensaver). Nothing uses it by default; run
+-- e.g. `chromium --app=<url> --class=winwrap` to try it.
+------------------------------------------------------------------------------
+pcall(hl.config, { plugin = { hyprwinwrap = { class = "winwrap" } } })
