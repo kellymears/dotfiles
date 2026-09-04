@@ -185,7 +185,7 @@ hl.bind(mainMod .. " + 4", hl.dsp.focus({ monitor = MONITOR_TV }))
 --
 -- Display submap: SUPER+0, then a digit.
 --   0 -- panel-kick.sh: recover a panel stuck in a bad post-wake mode
---        (wrong resolution/refresh) without touching the TV head or caffeine.
+--        (wrong resolution/refresh) without touching the TV head.
 --   1/2/3 -- toggle that DP panel on/off via monitor-toggle.sh. For
 --        KVM-switched setups -- a Steam Deck or MacBook driving one panel
 --        directly -- without losing the workspaces already on the other

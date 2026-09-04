@@ -17,9 +17,8 @@
 # modeset never leaves a panel at the wrong resolution/refresh unnoticed.
 #
 # 4 (the TV) is not handled here -- it delegates straight to tv-toggle.sh,
-# which already does the correct enable dance, caffeine, and audio-profile
-# switch. Re-implementing that here would just be a second copy to keep in
-# sync.
+# which already does the correct enable dance and audio-profile switch.
+# Re-implementing that here would just be a second copy to keep in sync.
 
 set -uo pipefail
 
