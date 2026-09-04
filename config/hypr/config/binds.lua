@@ -247,3 +247,11 @@ hl.bind(mainMod .. " + CONTROL + mouse_down", hl.dsp.focus({ workspace = "m+1" }
 if hl.plugin and hl.plugin.hymission then
     hl.bind(mainMod .. " + W", hl.plugin.hymission.toggle)
 end
+
+-- gamemod (~/.local/bin/gamemod): ReShade/RenoDX/OptiScaler injection for Proton games.
+-- U = ReShade overlay (sends Home to the focused game), SHIFT+U = toggle mods for
+-- the running game (next launch), CTRL+U = picker for installing into new games.
+local gamemod = "~/.local/bin/gamemod"
+hl.bind(mainMod .. " + U",         hl.dsp.exec_cmd(gamemod .. " overlay"))
+hl.bind(mainMod .. " + SHIFT + U", hl.dsp.exec_cmd(gamemod .. " toggle running"))
+hl.bind(mainMod .. " + CTRL + U",  hl.dsp.exec_cmd(launchPrefix .. "ghostty -e " .. gamemod .. " menu"))
