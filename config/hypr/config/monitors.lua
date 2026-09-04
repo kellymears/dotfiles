@@ -212,6 +212,20 @@ hl.on("monitor.added", tv_audio)
 hl.on("monitor.removed", tv_audio)
 hl.on("hyprland.start", tv_audio)
 
+-- Idle policy follows the TV head too: noctalia's screen_off is all-heads, so
+-- a controller-only evening on the couch would blank the game. The script
+-- inhibits idle while the TV is up and re-arms the timeouts when it goes down.
+-- config.reloaded is included because a reload does not change the monitor
+-- set, but does re-run this file -- and the TV may have been up the whole time.
+local function idle_policy()
+    hl.exec_cmd("~/.config/hypr/scripts/idle-policy.sh")
+end
+
+hl.on("monitor.added", idle_policy)
+hl.on("monitor.removed", idle_policy)
+hl.on("hyprland.start", idle_policy)
+hl.on("config.reloaded", idle_policy)
+
 -- Fallback for anything else not listed above.
 -- At 2, so it does not track the 1.5 on the three panels above. Fine for
 -- another 4K panel; on a 1080p display it would leave a 960x540 workspace.
