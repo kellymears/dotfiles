@@ -74,8 +74,13 @@ TV_NAME_MATCH="LG TV"
 # An explicit ranking cannot drift like that.
 #
 #   1. Bluetooth headphones  -- if they are connected they are in your ears
-#   2. the living-room TV    -- when its head is actually up
-#   3. the S/PDIF desk DAC   -- the everyday desk output
+#   2. the living-room TV    -- ONLY once chosen via --prefer-tv (the TV key);
+#                               a lit head alone is not consent. Once active it
+#                               is held across chain re-runs until the head
+#                               drops or something outranks it.
+#   3. the studio monitors   -- the USB interface's Speaker output, the
+#                               everyday desk output (S/PDIF kept as fallback
+#                               for the old DAC hookup)
 #   4. the center panel      -- genuine last resort, see --identify
 #
 # Still true, and still the reason tiers 3 and 4 are checked rather than
@@ -91,6 +96,10 @@ STATE_DIR="${XDG_STATE_HOME:-$HOME/.local/state}/hypr"
 # headphones are on your head. Tier 3 is a fixed name because it is one
 # specific box.
 BT_SINK_PREFIX="bluez_output."
+# Studio monitors on the USB interface's analog Speaker output (2026-08-30).
+# S/PDIF is the old desk DAC feed, kept only as fallback if the Speaker port's
+# jack-detect makes WirePlumber refuse the switch (see the note above).
+DESK_SINK="alsa_output.usb-Generic_USB_Audio-00.HiFi__Speaker__sink"
 SPDIF_SINK="alsa_output.usb-Generic_USB_Audio-00.HiFi__SPDIF__sink"
 
 # Tier 4 has to be pinned by codec port id, written by --identify. The three
@@ -333,10 +342,19 @@ if [[ -n $bt ]]; then
 fi
 
 # ------------------------------------------------------------------- tier 2
-# The living-room TV, but only while its head is really up. Name match first --
+# The living-room TV. A lit head is NOT enough: webOS Quick Start keeps the
+# head "up" while the screen is dark, and the desk speakers must win whenever
+# the TV was not explicitly chosen. So this tier only INITIATES a switch on
+# --prefer-tv (the TV key via tv-toggle.sh); on plain runs it merely HOLDS an
+# already-active TV choice (default sink is a GPU HDMI sink), so a Bluetooth
+# or USB sink event mid-game cannot yank audio off the TV. Name match first --
 # if a DisplayPort-to-HDMI adapter ever shows up on a panel, connection type
 # alone stops being a unique answer.
-if hyprctl monitors | grep -q "^Monitor $TV_HEAD ("; then
+tv_active=false
+[[ $(pactl get-default-sink 2>/dev/null) == "$SINK_PREFIX".hdmi-stereo* ]] && tv_active=true
+if [[ ${1:-} != --prefer-tv && $tv_active != true ]]; then
+    log "TV not chosen (--prefer-tv) and not active -- skipping TV tier"
+elif hyprctl monitors | grep -q "^Monitor $TV_HEAD ("; then
     line=$(awk -F'\t' -v n="$TV_NAME_MATCH" 'index($4, n) {print; exit}' <<<"$map")
     [[ -z $line ]] && line=$(awk -F'\t' '$3 == "HDMI" {print; exit}' <<<"$map")
     if [[ -n $line ]]; then
@@ -356,10 +374,13 @@ else
 fi
 
 # ------------------------------------------------------------------- tier 3
-# The desk DAC. Settle the GPU card first (see the note by park_card).
+# The studio monitors. Settle the GPU card first (see the note by park_card).
 rest_card
+if sink_exists "$DESK_SINK"; then
+    switch_to "$DESK_SINK" && { log "audio -> studio monitors (desk)"; exit 0; }
+fi
 if sink_exists "$SPDIF_SINK"; then
-    switch_to "$SPDIF_SINK" && { log "audio -> S/PDIF (desk)"; exit 0; }
+    switch_to "$SPDIF_SINK" && { log "audio -> S/PDIF (old desk DAC fallback)"; exit 0; }
 fi
 
 # ------------------------------------------------------------------- tier 4
