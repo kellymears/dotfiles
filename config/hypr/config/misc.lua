@@ -16,7 +16,7 @@ hl.config({
         vrr = 3,
     },
     render = {
-        direct_scanout = 2,
+        direct_scanout = 2, -- scanout-watch.service drops this to 0 while a fullscreen window is on HDMI-A-1 (ambilight capture)
     },
     xwayland = {
         force_zero_scaling = true
