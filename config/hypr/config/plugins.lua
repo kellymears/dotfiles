@@ -84,7 +84,10 @@ pcall(hl.config, {
                 -- "flash" dips to fade_opacity and back; the alternatives
                 -- (shrink/slide/bounce) are too much on every focus change.
                 keyboard_focus_animation = "flash",
-                mouse_focus_animation = "flash",
+                -- Mouse focus: none. The flash dip reads as "window goes
+                -- transparent on hover", which inverts the active/inactive
+                -- opacity cue. Keyboard focus keeps the flash.
+                mouse_focus_animation = "none",
                 fade_opacity = 0.9,
                 animate_floating = true,
                 only_on_monitor_change = false,

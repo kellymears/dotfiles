@@ -123,10 +123,11 @@ hl.window_rule({
 -- Opacity Overrides
 local terminals = "^(kitty|ghostty|[Kk]onsole|Alacritty|gnome-terminal|xfce[0-9]?-terminal)$"
 
--- Browsers: near-opaque, not opaque. Page content stays legible at 0.96
--- while the toolbar/tab strip picks up the xray glass plate like everything
--- else. Fullscreen (video) is still 1.0 via fullscreen_opacity.
-hl.window_rule({ match = { class = "^(firefox|zen|google-chrome|chromium-browser)$" }, opacity = "0.96 override 0.94 override 1.0 override" })
+-- Browsers: opaque when focused, so demo recordings and screenshares get
+-- clean page content; slightly translucent when unfocused so the
+-- active/inactive cue still reads. Fullscreen (video) is 1.0 too.
+-- chrome-.* catches Chrome PWAs (class chrome-<host>__-<profile>).
+hl.window_rule({ match = { class = "^(firefox|zen|google-chrome|chrome-.*|chromium-browser|[Hh]elium.*)$" }, opacity = "1.0 override 0.94 override 1.0 override" })
 hl.window_rule({ match = { class = terminals }, opacity = "1.0 override" }) -- Override opacity in favor of terminal settings for opacity. If your terminal doesn't support transparency, you can remove this rule.
 hl.window_rule({ match = { class = "^(mpv|org.kde.haruna|.*plex.*|org\\.kde\\.gwenview|.*vlc.*)$" }, opacity = "1.0 override" })
 
