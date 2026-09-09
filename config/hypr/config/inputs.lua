@@ -5,10 +5,15 @@ hl.config({
         -- sensitivity = -0.25,
         accel_profile = "flat",
     },
-    -- Uncomment the section below to enable software cursors; this can help with cursor display or behavior issues
-    -- cursor = {
-    --     no_hardware_cursors = 1,
-    -- },
+    cursor = {
+        -- Hide the pointer after a few idle seconds. Mainly so it is not
+        -- parked on top of the catsaver overlay, whose own "none" cursor
+        -- never applies because pointer focus does not move while idle.
+        inactive_timeout = 5,
+        -- Uncomment to enable software cursors; this can help with cursor
+        -- display or behavior issues.
+        -- no_hardware_cursors = 1,
+    },
 })
 
 hl.gesture({ fingers = 4, direction = "horizontal", action = "workspace" })

@@ -1,0 +1,235 @@
+[accessibility]
+ui_scale = 1.00
+
+[bar.default]
+background_opacity = 0.75
+center = [ "workspaces", "spacer_1", "active_window" ]
+concave_edge_corners = false
+end = [ "media", "lyrics", "spacer_1", "tray", "notifications", "network", "volume", "session" ]
+# Floating island. Keep margins EVEN — same scale-1.5 physical-pixel parity
+# rule as the bar thickness below.
+margin_edge = 8
+margin_ends = 12
+radius_bottom_left = 12
+radius_bottom_right = 12
+radius_top_left = 12
+radius_top_right = 12
+scale = 1.10
+start = [ "launcher", "clock", "spacer_1", "group:g1", "bongo_cat" ]
+# 36, not 35, and keep it even. Hyprland runs the 4K panels at scale 1.5,
+# so a logical size only lands on whole physical pixels when it is even
+# (1.5 = 3/2). The bar's thickness is reserved area, so an odd value makes
+# every tiled window below it odd-height too, and the compositor resamples
+# them onto a half pixel -- slightly soft everything. See monitors.lua.
+thickness = 36
+
+    [[bar.default.capsule_group]]
+    border = ""
+    fill = "on_secondary"
+    id = "g1"
+    members = [ "temp", "sysmon_2", "sysmon_3", "code_usage_codex", "code_usage_claude", "code_agents", "code_worktrees", "tailshare" ]
+    opacity = 1.0
+    padding = 6.0
+
+[idle]
+behavior_order = [ "screensaver", "lock" ]
+pre_action_fade_seconds = 2.0
+
+    # 5 minutes of no input starts catsaver (~/.config/hypr/scripts/
+    # catsaver.py): a black overlay on the three DP panels with a pixel cat
+    # bounding across them. Black OLED pixels are unpowered, so this is
+    # nearly as burn-in-safe as DPMS off -- and it never touches the
+    # outputs. DPMS off was the previous behaviour and was dropped because
+    # every wake re-trains all four heads and one DP panel regularly comes
+    # back stuck at 1920x1080@60 (the TV's HDMI FRL training also fails on
+    # each wake). The TV is left alone on purpose; see OUTPUTS in the script.
+    #
+    # One thing DPMS did that this does not: LG OLEDs run their pixel-refresh
+    # cycle when they go to standby, so power the panels off now and then.
+    #
+    # locked_timeout is deliberately left at 0 (off). Locking manually is not
+    # a request to blank; sometimes the lockscreen is wanted visible.
+    [idle.behavior.screensaver]
+    action = "command"
+    command = "systemd-run --user --quiet --collect --unit=catsaver /usr/bin/python3 /home/kelly/.config/hypr/scripts/catsaver.py"
+    resume_command = "systemctl --user stop catsaver.service"
+    enabled = true
+    timeout = 300.0
+    locked_timeout = 0.0
+
+    # Off by design, not an oversight. Physical access to this room is the
+    # whole threat model, and anyone who has it has already won. Super+L is
+    # still bound for the times it is actually wanted.
+    [idle.behavior.lock]
+    action = "lock"
+    enabled = false
+    timeout = 600.0
+    locked_timeout = 0.0
+
+    # lock_and_suspend stays off on purpose. This box serves worktree dev
+    # stacks over Tailscale; suspending it kills them mid-session.
+    [idle.behavior.lock-and-suspend]
+    action = "lock_and_suspend"
+    enabled = false
+    timeout = 900.0
+
+[shell]
+clipboard_image_action_command = "satty -f -"
+launch_apps_as_systemd_services = true
+polkit_agent = true
+settings_show_advanced = true
+
+    [shell.greeter_sync]
+    auto_sync = false
+
+    [shell.panel]
+    open_near_click_control_center = true
+    session_placement = "floating"
+    session_position = "center"
+
+    [shell.screenshot]
+    copy_to_clipboard = false
+    pipe_command = "satty -f -"
+    pipe_to_command = true
+    save_to_file = false
+
+    [[shell.session.actions]]
+    action = "lock"
+    countdown_seconds = 0.0
+    enabled = true
+    shortcut = "1"
+    variant = "default"
+
+    [[shell.session.actions]]
+    action = "logout"
+    countdown_seconds = 0.0
+    enabled = true
+    shortcut = "2"
+    variant = "default"
+
+    [[shell.session.actions]]
+    action = "lock_and_suspend"
+    countdown_seconds = 3.0
+    enabled = true
+    shortcut = "3"
+    variant = "default"
+
+    [[shell.session.actions]]
+    action = "reboot"
+    countdown_seconds = 3.0
+    enabled = true
+    shortcut = "4"
+    variant = "default"
+
+    [[shell.session.actions]]
+    action = "shutdown"
+    countdown_seconds = 3.0
+    enabled = true
+    shortcut = "5"
+    variant = "destructive"
+
+[system.monitor]
+gpu_poll_seconds = 2
+
+[theme]
+mode = "dark"
+# "Rose Pine Ink": ~/.config/noctalia/palettes/Rose Pine Ink.json -- Rosé Pine accents on a
+# near-black surface ramp (base #0b0a10, overlay #15131d) instead of the stock purple.
+source = "custom"
+custom_palette = "Rose Pine Ink"
+wallpaper_scheme = "m3-tonal-spot"
+
+    [theme.templates]
+    builtin_ids = [ "btop", "gtk3", "gtk4", "kcolorscheme", "kitty", "qt", "alacritty" ]
+
+[widget.lyrics]
+type = "h465855hgg/lyrics:lyrics"
+
+[widget.bongo_cat]
+type = "noctalia/bongocat:cat"
+# A glob, not enumerated paths, and by-id rather than eventN (the numbers get
+# reshuffled on replug). The board exposes FOUR keyboard nodes -- wired and
+# dongle, each with a plain and an if01 HID interface -- and which one carries
+# ordinary keystrokes depends on the board's NKRO mode, so guessing wrong
+# means a cat that never moves. The glob takes all of them; evtest on a node
+# that never emits costs nothing.
+input_devices = [ "/dev/input/by-id/usb-NuPhy*event-kbd" ]
+audio_spectrum = false
+
+[widget.clock]
+color = "primary"
+format = "{:%H:%M %A %m/%d/%y}"
+
+[widget.code_usage_codex]
+type = "kelly/code-pulse:usage"
+provider = "codex"
+account_directory = "~/.codex"
+label = "C"
+
+[widget.code_usage_claude]
+type = "kelly/code-pulse:usage"
+provider = "claude"
+account_directory = "~/.claude-carrot"
+label = "A"
+
+[widget.code_agents]
+type = "kelly/code-pulse:agents"
+agent_directories = [ "~/.codex", "~/.claude-carrot" ]
+label = ""
+
+[widget.code_worktrees]
+type = "kelly/code-pulse:worktrees"
+git_roots = [ "~/code" ]
+label = ""
+ide_command = "code"
+
+[widget.tailshare]
+type = "kelly/tailshare:shares"
+
+[widget.launcher]
+color = "primary"
+
+[widget.media]
+hide_when_no_media = true
+title_scroll = "on_hover"
+
+[widget.network]
+color = "secondary"
+
+[widget.notifications]
+color = "secondary"
+
+[widget.session]
+color = "error"
+
+[widget.spacer_1]
+type = "spacer"
+
+[widget.temp]
+show_value = false
+
+[widget.sysmon_2]
+glyph = "gpu-usage"
+show_value = false
+stat = "gpu_temp"
+type = "sysmon"
+
+[widget.sysmon_3]
+glyph = "cpu-2"
+stat = "ram_used"
+type = "sysmon"
+
+[widget.tray]
+capsule = true
+capsule_fill = "on_secondary"
+
+[widget.volume]
+color = "tertiary"
+
+[widget.workspaces]
+active_pill_size = 2.5
+capsule = true
+capsule_fill = "on_primary"
+inactive_pill_size = 1.0
+pill_scale = 0.80
+show_labels = false
