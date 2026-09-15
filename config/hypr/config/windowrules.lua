@@ -204,4 +204,4 @@ hl.layer_rule({
 
 -- rice (~/.local/bin/rice): terminal eye-candy windows. Chromeless, never
 -- steal focus, and slightly dimmer so they read as decoration, not work.
-hl.window_rule({ match = { class = "^dev\\.kelly\\.rice$" }, float = true, border_size = 0, no_dim = true, opacity = 0.85, rounding = 12 })
+hl.window_rule({ match = { class = "^dev\\.kelly\\.rice$" }, border_size = 0, no_dim = true, opacity = 0.85, rounding = 12 })
