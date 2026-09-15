@@ -201,3 +201,7 @@ hl.layer_rule({
 -- is created by the already-running process, so neither --title nor --class
 -- applies and no window rule can match it. A terminal that honours --class
 -- (kitty) could be auto-placed here instead.
+
+-- rice (~/.local/bin/rice): terminal eye-candy windows. Chromeless, never
+-- steal focus, and slightly dimmer so they read as decoration, not work.
+hl.window_rule({ match = { class = "^dev\\.kelly\\.rice$" }, border_size = 0, no_focus = true, no_dim = true, opacity = 0.85, no_shadow = true, rounding = 12 })

@@ -90,6 +90,12 @@ hl.bind(mainMod .. " + E",          hl.dsp.exec_cmd(launchPrefix .. FILE_MANAGER
 hl.bind(mainMod .. " + C",          hl.dsp.exec_cmd(launchPrefix .. CALCULATOR))
 hl.bind("XF86Calculator",           hl.dsp.exec_cmd(launchPrefix .. CALCULATOR))
 hl.bind("CONTROL + SHIFT + Escape", hl.dsp.exec_cmd(launchPrefix .. TERMINAL .. " -e btop"))
+
+-- rice (~/.local/bin/rice): terminal eye-candy. Scatter one effect per
+-- workspace, drop a random one here, or clear them all.
+hl.bind(mainMod .. " + SHIFT + Y",  hl.dsp.exec_cmd("~/.local/bin/rice scatter"))
+hl.bind(mainMod .. " + Y",          hl.dsp.exec_cmd("~/.local/bin/rice random"))
+hl.bind(mainMod .. " + CTRL + Y",   hl.dsp.exec_cmd("~/.local/bin/rice kill"))
 hl.bind(mainMod .. " + Z",          hl.dsp.exec_cmd(noctCall .. "settings-toggle"))
 hl.bind(mainMod .. " + X",          hl.dsp.exec_cmd(noctCall .. "panel-toggle control-center"))
 -- App launcher: vicinae, not Noctalia's panel. Raycast-shaped root search
