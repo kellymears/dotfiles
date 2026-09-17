@@ -57,4 +57,8 @@ end
 
 hl.on("monitor.added", gaming_monitor)
 hl.on("monitor.removed", gaming_monitor)
-hl.on("config.reloaded", gaming_monitor)
+-- 2026-09-16: disabled. gaming-monitor.sh runs `hyprctl eval hl.workspace_rule(...)`,
+-- which re-parses the config and fires config.reloaded again, so this hook made
+-- every reload spawn another reload (seen as ~240 re-parses in 4 s during the
+-- hymission lockup hunt). monitor.added/removed above cover the real cases.
+-- hl.on("config.reloaded", gaming_monitor)
