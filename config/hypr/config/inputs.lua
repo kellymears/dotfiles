@@ -4,6 +4,12 @@ hl.config({
     input = {
         -- sensitivity = -0.25,
         accel_profile = "flat",
+        -- Click to focus. Default (1) moves focus on hover, which makes it
+        -- far too easy to lose focus by brushing the mouse across a display.
+        -- 2 detaches pointer focus from keyboard focus: hover still delivers
+        -- scroll/hover events to the window under the cursor, but keyboard
+        -- focus only moves on click.
+        follow_mouse = 2,
     },
     cursor = {
         -- Hide the pointer after a few idle seconds. Mainly so it is not
