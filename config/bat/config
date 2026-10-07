@@ -8,10 +8,10 @@
 # A custom theme only takes effect after `bat cache --build`, which compiles
 # themes/ into ~/.cache/bat/themes.bin. Re-run it after changing the file --
 # editing the .tmTheme alone does nothing.
---theme="rose-pine"
 
 # Show line numbers and git modification markers, but no heavy box drawing.
 --style="numbers,changes,header"
 
 # Don't wrap; long lines scroll. Easier to read code and diffs.
 --wrap=never
+--theme=noctalia
