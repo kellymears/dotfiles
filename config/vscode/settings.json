@@ -87,7 +87,7 @@
   "explorer.confirmDelete": false,
   "explorer.confirmDragAndDrop": false,
   "git.autofetch": true,
-  "git.blame.editorDecoration.enabled": true,
+  "git.blame.editorDecoration.enabled": false,
   "git.fetchOnPull": true,
   "githubPullRequests.pullBranch": "never",
   "intelephense.format.enable": false,
@@ -140,4 +140,8 @@
     "vscode-kubernetes.helm-path-mac": "/Users/kellymears/.vs-kubernetes/tools/helm/darwin-arm64/helm",
     "vscode-kubernetes.minikube-path-mac": "/Users/kellymears/.vs-kubernetes/tools/minikube/darwin-arm64/minikube",
   },
+  "claudeCode.preferredLocation": "panel",
+  "claudeCode.hideOnboarding": true,
+  "git.blame.statusBarItem.enabled": false,
+  "security.workspace.trust.untrustedFiles": "open",
 }
