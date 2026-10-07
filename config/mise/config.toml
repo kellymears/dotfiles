@@ -1,5 +1,4 @@
 [tools]
 bun = "latest"
 node = "lts"
-python = "latest"
 ruby = "latest"
