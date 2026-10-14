@@ -11,7 +11,7 @@ vscode_user_dir="$config_dest/Code/User"
 # macOS-only: either the path has no Linux analogue or the tool isn't here.
 # ghostty and vscode are handled explicitly below rather than linked as whole
 # directories — neither tool reads a directory named after itself.
-skip=(homebrew swiftpm configstore intelephense vscode ghostty)
+skip=(homebrew swiftpm configstore intelephense vscode ghostty opencode)
 
 link() {
   local src="$1"
@@ -69,6 +69,14 @@ mkdir -p "$config_dest/ghostty"
 link "$config_src/ghostty/linux.conf"  "$config_dest/ghostty/config"
 link "$config_src/ghostty/shared.conf" "$config_dest/ghostty/shared.conf"
 link "$config_src/ghostty/shaders"     "$config_dest/ghostty/shaders"
+
+# opencode: only the config file is linked. linux.json points at the local
+# vLLM and Ollama servers on this box, so it is named per-OS (the macOS side
+# reads config/opencode directly via XDG_CONFIG_HOME and must not pick it up),
+# and ~/.config/opencode stays a real directory because noctalia writes a
+# generated theme into themes/.
+mkdir -p "$config_dest/opencode"
+link "$config_src/opencode/linux.json" "$config_dest/opencode/opencode.json"
 
 # VS Code: same two files as macOS, but under ~/.config/Code/User rather than
 # Library/Application Support. The directory is created up front so the links

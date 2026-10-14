@@ -45,6 +45,10 @@
 !paru/
 !paru/**
 
+# opencode: the Linux config only. themes/ is noctalia-generated machine state.
+!opencode/
+!opencode/linux.json
+
 # noctalia: the hand-written config and custom palettes. config.toml.bak and
 # similar backups stay out; git is the history now. settings.toml (the
 # UI-edited overrides) lives in ~/.local/state and is machine state.

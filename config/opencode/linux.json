@@ -1,0 +1,136 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "cachy/devstral-small-2",
+  "provider": {
+    "cachy": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "cachy (llama.cpp)",
+      "options": {
+        "baseURL": "http://127.0.0.1:8000/v1",
+        "apiKey": "local"
+      },
+      "models": {
+        "devstral-small-2": {
+          "name": "Devstral Small 2",
+          "attachment": true,
+          "tool_call": true,
+          "temperature": true,
+          "reasoning": false,
+          "modalities": {
+            "input": [
+              "text",
+              "image"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "limit": {
+            "context": 65536,
+            "output": 8192
+          }
+        },
+        "gemma-4-26b-a4b": {
+          "name": "Gemma 4 26B-A4B",
+          "attachment": true,
+          "tool_call": true,
+          "temperature": true,
+          "reasoning": false,
+          "modalities": {
+            "input": [
+              "text",
+              "image"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "limit": {
+            "context": 32768,
+            "output": 8192
+          }
+        },
+        "qwen3.6-35b-a3b-heretic": {
+          "name": "Qwen3.6 35B-A3B Heretic",
+          "attachment": true,
+          "tool_call": true,
+          "temperature": true,
+          "reasoning": false,
+          "modalities": {
+            "input": [
+              "text",
+              "image"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "limit": {
+            "context": 65536,
+            "output": 8192
+          }
+        }
+      }
+    },
+    "ollama": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Ollama (local)",
+      "options": {
+        "baseURL": "http://127.0.0.1:11434/v1"
+      },
+      "models": {
+        "qwen3-coder:30b": {
+          "name": "Qwen3 Coder 30B",
+          "tool_call": true,
+          "attachment": false,
+          "modalities": {
+            "input": [
+              "text"
+            ],
+            "output": [
+              "text"
+            ]
+          }
+        },
+        "qwen3-coder-32k:latest": {
+          "name": "Qwen3 Coder 30B (32k ctx)",
+          "tool_call": true,
+          "attachment": false,
+          "modalities": {
+            "input": [
+              "text"
+            ],
+            "output": [
+              "text"
+            ]
+          }
+        },
+        "qwen3.8:27b": {
+          "name": "Qwen3.8 27B",
+          "tool_call": true
+        },
+        "qwen3.5:9b": {
+          "name": "Qwen3.5 9B",
+          "tool_call": true
+        },
+        "cake-qwen3.5-9b-32k:latest": {
+          "name": "Qwen3.5 9B (cake, 32k ctx)",
+          "tool_call": true
+        },
+        "qwen2.5:7b": {
+          "name": "Qwen2.5 7B",
+          "tool_call": true,
+          "attachment": false,
+          "modalities": {
+            "input": [
+              "text"
+            ],
+            "output": [
+              "text"
+            ]
+          }
+        }
+      }
+    }
+  }
+}
