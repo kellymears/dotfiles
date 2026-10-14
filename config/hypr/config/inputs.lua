@@ -32,6 +32,18 @@ hl.config({
     },
 })
 
+-- Magic Trackpad scroll acceleration, macOS-style: slow drags move less than
+-- the finger. Fast motion is held to about half speed: browsers coast from
+-- the release speed, so anything faster launches the page. scroll_points are
+-- output speeds at input speeds 0, 1, 2, ... units/ms, and libinput extends
+-- the last segment's slope.
+-- "custom 1 0 1" keeps pointer motion at the flat 1:1 everything else uses.
+hl.device({
+    name = "apple-inc.-magic-trackpad",
+    accel_profile = "custom 1 0 1",
+    scroll_points = "1 0 0.3 0.75 1.35 2.1 2.7 3.25 3.75 4.2 4.6",
+})
+
 hl.gesture({ fingers = 4, direction = "horizontal", action = "workspace" })
 hl.gesture({ fingers = 3, direction = "down",       action = "close" })
 hl.gesture({ fingers = 3, direction = "up",         action = "fullscreen" })
