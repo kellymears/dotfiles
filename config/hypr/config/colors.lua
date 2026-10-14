@@ -39,6 +39,16 @@ local function rgba(value, alpha, fallback)
     return "rgba(" .. hexOf(value, fallback) .. alpha .. ")"
 end
 
+-- Scale a colour's RGB toward black (factor 0..1) before wrapping it.
+local function shade(value, factor, alpha, fallback)
+    local hex = hexOf(value, fallback)
+    local out = ""
+    for i = 1, 5, 2 do
+        out = out .. string.format("%02x", math.floor(tonumber(hex:sub(i, i + 1), 16) * factor))
+    end
+    return "rgba(" .. out .. alpha .. ")"
+end
+
 local N = NOCTALIA or {}
 
 -- Rosé Pine accents (translucent, for the glass look).
@@ -47,6 +57,14 @@ ROSEPRIMARY   = rgba(N.primary,   "cc", ROSE_ROSE)
 ROSESECONDARY = rgba(N.secondary, "cc", ROSE_FOAM)
 ROSESURFACE   = rgba(N.surface,   "ff", ROSE_BASE)
 ROSEERROR     = rgba(N.error,     "ff", ROSE_LOVE)
+
+-- Focused-window edge. The border itself is faint (a third opacity) and the
+-- presence comes from GLOW, the active window's shadow tinted with primary
+-- -- a soft halo instead of a hard 2px outline. Shaded darker so it reads as
+-- a tinted rim rather than a light bloom.
+EDGEPRIMARY   = rgba(N.primary,   "55", ROSE_ROSE)
+EDGESECONDARY = rgba(N.secondary, "55", ROSE_FOAM)
+GLOW          = shade(N.primary, 0.6, "59", ROSE_ROSE)
 
 -- Kept as named literals: these are fixed accents, not palette roles, and
 -- there is nothing in Noctalia's four-role export to map them onto.

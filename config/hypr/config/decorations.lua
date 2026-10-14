@@ -17,9 +17,10 @@ hl.config({
             -- Palette-driven, not hardcoded: ROSEPRIMARY/ROSESECONDARY come
             -- from the live Noctalia palette via colors.lua, so switching
             -- palette in Noctalia re-tints the borders along with everything
-            -- else. Under "Rosé Pine" this is rose -> foam.
+            -- else. Under "Rosé Pine" this is rose -> foam. Faint on purpose:
+            -- the glow (decoration.shadow below) carries the focus cue.
             active_border = {
-                colors = { ROSEPRIMARY, ROSESECONDARY },
+                colors = { EDGEPRIMARY, EDGESECONDARY },
                 angle = 45,
             },
             inactive_border = GLASSEDGE,
@@ -81,11 +82,14 @@ hl.config({
         },
         shadow = {
             enabled = true,
-            -- Floating-card shadow: long, soft, dropped slightly downward.
-            range = 40,
+            -- Focused window: centred, primary-tinted halo (the glow).
+            -- Unfocused windows keep a dark shadow. decoration.glow exists
+            -- but is an INNER glow drawn over the window's content, so the
+            -- outer halo is done with the shadow instead.
+            range = 6,
             render_power = 4,
-            offset = { 0, 6 },
-            color = GLASSDARK,
+            offset = { 0, 0 },
+            color = GLOW,
             color_inactive = "rgba(0b0a1433)",
         },
         -- Corner vignette (no chromatic aberration: it blurs text at 4K). One
