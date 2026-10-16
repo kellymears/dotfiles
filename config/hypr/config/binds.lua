@@ -268,13 +268,6 @@ hl.bind(mainMod .. " + mouse_up",             hl.dsp.focus({ workspace = "m+1" }
 hl.bind(mainMod .. " + CONTROL + mouse_up",   hl.dsp.focus({ workspace = "m-1" }))
 hl.bind(mainMod .. " + CONTROL + mouse_down", hl.dsp.focus({ workspace = "m+1" }))
 
--- Workspace overview (hymission plugin — hyprexpo's community successor).
--- Guarded: binds.lua must still load if the plugin isn't (fresh machine,
--- hyprpm rebuild pending after a Hyprland update).
-if hl.plugin and hl.plugin.hymission then
-    hl.bind(mainMod .. " + W", hl.plugin.hymission.toggle)
-end
-
 -- gamemod (~/.local/bin/gamemod): ReShade/RenoDX/OptiScaler injection for Proton games.
 -- U = ReShade overlay (sends Home to the focused game), SHIFT+U = toggle mods for
 -- the running game (next launch), CTRL+U = picker for installing into new games.

@@ -6,7 +6,7 @@
 -- block is guarded: a plugin that failed to rebuild after a Hyprland bump must
 -- not take the whole config down with it.
 --
--- Currently enabled: hymission (bound in binds.lua), hyprfocus,
+-- Currently enabled: hyprfocus,
 -- dynamic-cursors, hyprwinwrap (gen3vra fork).
 --
 -- Deliberately NOT enabled: hyprbars. Title bars are dead space on a setup
