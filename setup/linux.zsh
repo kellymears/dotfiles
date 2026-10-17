@@ -85,6 +85,16 @@ mkdir -p "$vscode_user_dir"
 link "$config_src/vscode/settings.json"    "$vscode_user_dir/settings.json"
 link "$config_src/vscode/keybindings.json" "$vscode_user_dir/keybindings.json"
 
+# Default browser: Helium. ~/.config/mimeapps.list isn't linked because apps
+# rewrite it in place, so the handlers are set here instead. Chromium's own
+# "make default" toggle doesn't stick under Hyprland. BROWSER is set in
+# hypr/config/environment.lua.
+if [[ -f /usr/share/applications/helium.desktop ]]; then
+  xdg-mime default helium.desktop \
+    x-scheme-handler/http x-scheme-handler/https x-scheme-handler/about \
+    x-scheme-handler/unknown text/html application/xhtml+xml
+fi
+
 echo
 echo "Done. Any REFUSE lines above are pre-existing configs (CachyOS ships its"
 echo "own btop/hypr/kitty). Remove those files deliberately, then re-run."
