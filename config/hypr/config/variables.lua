@@ -2,7 +2,7 @@
 
 TERMINAL     = "ghostty"
 FILE_MANAGER = "nautilus"
-BROWSER      = "zen-browser"
+BROWSER      = "helium-browser"
 CALCULATOR   = "gnome-calculator"
 
 -- Monitors
