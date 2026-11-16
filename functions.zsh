@@ -3,9 +3,9 @@ function afk() {
 }
 
 # ── remote dev box (cachy) ───────────────────────────────────────────
-# i9-14900KF / 62GB / RTX 4090 running CachyOS. Preferred host for docker
-# stacks, dev servers, test suites, and local LLM inference — it is much
-# faster than this laptop and does not drain the battery.
+# i9-14900KF / 62GB / RTX 4090 running CachyOS. Optional: the Mac runs
+# everything itself; reach for the box for GPU work (local LLMs) or when
+# you want something off the laptop.
 #   ssh cachy      LAN      (192.168.1.12)
 #   ssh cachy-ts   Tailscale (works anywhere)
 

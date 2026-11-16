@@ -1,9 +1,8 @@
 # Brewfile — macOS only. cachy (Arch) installs through paru instead.
 #
-# Kept deliberately small: anything heavy (docker stacks, language runtimes
-# beyond node/bun, local LLMs, k8s tooling) runs on cachy, not the laptop.
-# The commented blocks at the bottom are things that used to live here —
-# uncomment when you actually miss one.
+# Kept deliberately small — a preference, not a constraint: this Mac is
+# capable of running anything. The commented blocks at the bottom are things
+# that used to live here; uncomment one when you actually miss it.
 
 # ── shell ────────────────────────────────────────────────────────────
 brew "antidote"
@@ -90,7 +89,7 @@ vscode "yoavbls.pretty-ts-errors"
 # brew "neovim"
 # brew "tmux"
 #
-# Usually better on cachy:
+# Dev stacks (orbstack is needed to run carrot locally):
 # cask "orbstack"
 # cask "ollama-app"
 # brew "kubernetes-cli"
