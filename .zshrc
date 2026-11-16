@@ -121,15 +121,17 @@ _compose_rprompt() {
 }
 add-zsh-hook precmd _compose_rprompt
 
-# bun completions
-[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
+# ── installer leftovers (only where those installers have run) ──────
+# mise provides bun everywhere; ~/.bun only exists if the curl installer
+# was used, and fly only exists where flyctl was installed.
+if [[ -d $HOME/.bun ]]; then
+  export BUN_INSTALL="$HOME/.bun"
+  path=($BUN_INSTALL/bin $path)
+  [[ -s $BUN_INSTALL/_bun ]] && source $BUN_INSTALL/_bun
+fi
+if [[ -d $HOME/.fly ]]; then
+  export FLYCTL_INSTALL="$HOME/.fly"
+  path=($FLYCTL_INSTALL/bin $path)
+fi
 
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
-
-if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init zsh)"; fi
-
-# Added by flyctl installer
-export FLYCTL_INSTALL="/home/kelly/.fly"
-export PATH="$FLYCTL_INSTALL/bin:$PATH"
+(( $+commands[wt] )) && eval "$(command wt config shell init zsh)"

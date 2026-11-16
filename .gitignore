@@ -1,3 +1,5 @@
 .zsh_plugins.zsh
 env/secret.zsh
 .DS_Store
+# gh writes its OAuth token here. On Linux ~/.config/gh links to the repo.
+config/gh/hosts.yml

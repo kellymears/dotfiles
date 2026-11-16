@@ -48,6 +48,9 @@ link "$dotfiles_dir/.zshenv"         "$HOME/.zshenv"
 link "$config_src/.gitconfig"        "$HOME/.gitconfig"
 link "$config_src/gitignore_global"  "$HOME/.gitignore"
 
+source "$dotfiles_dir/setup/gitconfig-local.zsh"
+write_gitconfig_local
+
 # Every config directory except the macOS-only ones.
 for src in "$config_src"/*(N/); do
   name="${src:t}"

@@ -1,6 +1,5 @@
-# macOS entry point. Linked to ~/Library/Application Support/com.mitchellh.ghostty/
-# by setup/link.zsh, because Ghostty ignores XDG_CONFIG_HOME when launched
-# from the Dock.
+# macOS entry point. Linked to ~/.config/ghostty/config by setup/link.zsh;
+# Ghostty reads that path even when launched from the Dock.
 #
 # Linux uses linux.conf instead; anything belonging to both goes in shared.conf.
 
@@ -21,14 +20,5 @@ window-colorspace           = display-p3
 theme                       = Snazzy
 
 # VT520 phosphor filter — disabled, shader kept in shaders/ for later.
-#
-# Ghostty loads this config twice on macOS when launched from a shell:
-# once via the Application Support symlink and once via XDG_CONFIG_HOME,
-# which env/darwin.zsh points at this repo. Scalar options are harmless
-# (last wins) but custom-shader is repeatable, so the filter stacked on
-# itself in shell-launched windows and not in Dock-launched ones.
-#
-# The `shaders` directory is still symlinked alongside this file, for the
-# relative-path reason described in shared.conf.
 # custom-shader             = shaders/vt520.glsl
 # custom-shader-animation   = true

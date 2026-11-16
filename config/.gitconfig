@@ -42,7 +42,6 @@
 [user]
 	name = Kelly Mears
 	email = developers@tinypixel.dev
-	signingkey = /home/kelly/.ssh/id_ed25519.pub
 [credential "https://github.com"]
 	helper = 
 	helper = !gh auth git-credential
@@ -51,5 +50,9 @@
 	helper = !gh auth git-credential
 [tag]
 	gpgsign = true
-[gpg "ssh"]
-	allowedSignersFile = /home/kelly/.config/git/allowed_signers
+
+# Machine-specific bits (signing key path, allowed signers) live in an
+# untracked ~/.gitconfig.local, written by setup/link.zsh or setup/linux.zsh.
+# Last, so it can override anything above.
+[include]
+	path = ~/.gitconfig.local

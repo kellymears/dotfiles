@@ -1,0 +1,4 @@
+# Linux-only tools — loaded because .zshenv sets MISE_ENV=linux there.
+# Kept off the Mac, where ruby would compile from source for no reason.
+[tools]
+ruby = "latest"

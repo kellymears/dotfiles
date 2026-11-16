@@ -11,11 +11,10 @@ function afk() {
 
 function cachy_wt() {
   # cachy_wt <repo> <branch> — create/switch a worktree on the dev box.
-  # -A forwards the ssh agent so git operations there can reach GitHub;
-  # no private key is stored on the box.
+  # The box has its own GitHub key, so no agent forwarding is needed.
   local repo="${1:?usage: cachy_wt <repo> <branch>}"
   local branch="${2:?usage: cachy_wt <repo> <branch>}"
-  ssh -A cachy "cd ~/code/git/oncarrot/${repo} && wt switch ${(q)branch}"
+  ssh cachy "cd ~/code/git/oncarrot/${repo} && wt switch ${(q)branch}"
 }
 
 function cachy_fwd() {

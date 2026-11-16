@@ -382,6 +382,7 @@ defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
 # Why: Screenshots clutter the Desktop. A dedicated folder keeps them
 #      organized and easy to find.
 # Recommended: ~/Documents/screenshots or ~/Pictures/screenshots
+mkdir -p "${HOME}/Documents/screenshots"
 defaults write com.apple.screencapture location -string "${HOME}/Documents/screenshots"
 
 # disable-shadow — remove the drop shadow from window screenshots.
@@ -432,37 +433,9 @@ defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
 # Recommended: false
 defaults write NSGlobalDomain NSQuitAlwaysKeepsWindows -bool false
 
-# AppleFontSmoothing — subpixel font rendering / font smoothing level.
-#
-#   0  = none (sharp, may look jagged on non-Retina)
-#   1  = light
-#   2  = medium
-#   3  = strong (heavy smoothing)                      ← current
-#
-# Note: On Apple Silicon with Retina displays, the visible difference
-#       between 1–3 is negligible. This mainly helps on external
-#       non-Retina monitors.
-# Why: Strong smoothing improves text clarity on non-Apple LCDs.
-# Recommended: 3
-defaults write NSGlobalDomain AppleFontSmoothing -int 3
-
 ###############################################################################
 # Developer & Utilities                                                       #
 ###############################################################################
-
-# CrashReporter DialogType — what happens when an app crashes.
-#
-#   "none"      = silently ignore crashes              ← current
-#   "basic"     = simple "Report" / "OK" dialog
-#   "developer" = detailed crash report with stack trace
-#   "server"    = headless logging (macOS Server)
-#
-# Why: Crash dialogs are disruptive during development when apps crash
-#      frequently. Crash logs are still written to ~/Library/Logs/
-#      DiagnosticReports/ regardless of this setting.
-# Recommended: "none" if crashes are routine during development;
-#   "developer" if you want to see stack traces immediately.
-defaults write com.apple.CrashReporter DialogType -string "none"
 
 # DevMode — allow Help Viewer windows to go behind other windows.
 #
@@ -483,20 +456,6 @@ defaults write com.apple.helpviewer DevMode -bool true
 #      quick notes and viewing config files without formatting noise.
 # Recommended: 0
 defaults write com.apple.TextEdit RichText -int 0
-
-# LSQuarantine — the "Are you sure you want to open this application
-# downloaded from the Internet?" dialog (Gatekeeper first-run prompt).
-#
-#   true  = show the quarantine dialog (macOS default)
-#   false = suppress the dialog                        ← current
-#
-# Note: On Big Sur and later, this setting is increasingly unreliable.
-#       macOS may still show the dialog for notarization checks regardless
-#       of this preference. Use `xattr -d com.apple.quarantine <app>` for
-#       individual apps if this doesn't take effect.
-# Why: The dialog appears for every downloaded app and CLI tool.
-# Recommended: false — but verify it works on your macOS version.
-defaults write com.apple.LaunchServices LSQuarantine -bool false
 
 ###############################################################################
 # Software Update & App Store                                                 #
@@ -562,38 +521,6 @@ defaults write com.apple.SoftwareUpdate CriticalUpdateInstall -int 1
 #      every time, especially for drives used for other purposes.
 # Recommended: true
 defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true
-
-###############################################################################
-# cmux                                                                        #
-###############################################################################
-
-# cmux terminal multiplexer (cmuxterm.app) preferences.
-# These are app-specific and less universal than the system settings above.
-
-# Appearance — follow system light/dark mode
-defaults write com.cmuxterm.app appearanceMode -string "system"
-
-# Sidebar — native macOS sidebar style, blended within the window
-defaults write com.cmuxterm.app sidebarPreset -string "nativeSidebar"
-defaults write com.cmuxterm.app sidebarBlendMode -string "withinWindow"
-defaults write com.cmuxterm.app sidebarMaterial -string "sidebar"
-defaults write com.cmuxterm.app sidebarState -string "followWindow"
-
-# Theme — Snazzy for both light and dark mode
-defaults write com.cmuxterm.app terminalThemeLight -string "Snazzy"
-defaults write com.cmuxterm.app terminalThemeDark -string "Snazzy"
-
-# Privacy — disable anonymous telemetry
-defaults write com.cmuxterm.app sendAnonymousTelemetry -bool false
-
-# Browser — open all links in the system browser, not cmux's built-in one
-defaults write com.cmuxterm.app browserInterceptTerminalOpenCommandInCmuxBrowser -bool false
-defaults write com.cmuxterm.app browserOpenSidebarPullRequestLinksInCmuxBrowser -bool false
-defaults write com.cmuxterm.app browserOpenTerminalLinksInCmuxBrowser -bool false
-defaults write com.cmuxterm.app browserSearchSuggestionsEnabled -bool false
-
-# Socket — cmux-only mode (no external tmux session control)
-defaults write com.cmuxterm.app socketControlMode -string "cmuxOnly"
 
 ###############################################################################
 # Kill affected applications                                                  #

@@ -1,42 +1,24 @@
 # darwin.zsh — macOS-only environment.
 # Sourced from .zshrc when $OSTYPE is darwin*.
 
+# Homebrew first: `brew shellenv` prepends /opt/homebrew/{bin,sbin} to the
+# PATH that /etc/zprofile's path_helper already built, plus MANPATH etc.
+source $HOME/.dotfiles/brew.zsh
+
 typeset -U PATH path
-export path=(
-  /Library/Apple/usr/bin
-  /System/Cryptexes/App/usr/bin
-  /var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin
-  /var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin
-  /var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin
-  /Library/Frameworks/Mono.framework/Versions/Current/Commands
+path=($HOME/.local/bin $path)
 
-  /opt/homebrew/opt/rustup/bin
-  /opt/homebrew/bin
-  /opt/homebrew/sbin
-  /usr/local/MacGPG2/bin
-
-  /usr/local/bin
-  /usr/bin
-  /bin
-  /usr/sbin
-  /sbin
-
-  $HOME/.local/bin
-  $HOME/.cargo/bin
-)
-
-# Config lives in the repo and XDG_CONFIG_HOME points at it directly, so
-# nothing needs symlinking. This works on macOS because every consumer here
-# is launched from a shell. Linux can't do this — see env/linux.zsh.
+# Same layout as Linux: ~/.config is a real directory and setup/link.zsh
+# symlinks individual configs into it. XDG_CONFIG_HOME used to point at the
+# repo itself, which meant every tool that *writes* config (gh's hosts.yml
+# with its OAuth token, for one) wrote it into the working tree.
 export CONFIG=$HOME/.dotfiles/config
-export XDG_CONFIG_HOME=$CONFIG
+export XDG_CONFIG_HOME=$HOME/.config
 export RIPGREP_CONFIG_PATH=$CONFIG/.ripgreprc
 
 # Directory containing antidote.zsh and functions/. Homebrew nests these
 # under share/antidote; a git checkout has them at the root (see linux.zsh).
 antidote_home=/opt/homebrew/opt/antidote/share/antidote
 
-source $HOME/.dotfiles/brew.zsh
-
-# OrbStack: command-line tools and integration
-source $HOME/.orbstack/shell/init.zsh 2>/dev/null || :
+# OrbStack: command-line tools and integration (only if installed)
+[[ -f $HOME/.orbstack/shell/init.zsh ]] && source $HOME/.orbstack/shell/init.zsh

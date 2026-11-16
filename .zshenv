@@ -27,6 +27,10 @@ export PATH
 # Personal vaults are still reachable with --account tinypixel.1password.com.
 [[ "$OSTYPE" == linux* ]] && export OP_ACCOUNT=team-carrot.1password.com
 
+# mise also reads config/mise/config.$MISE_ENV.toml — Linux-only runtimes
+# (ruby) live there so the Mac doesn't install them.
+[[ "$OSTYPE" == linux* ]] && export MISE_ENV=linux
+
 # claudish: use the codex provider and silence its startup notice
 export CLAUDISH_PROVIDER=codex
 export CLAUDISH_NOTICE=0
